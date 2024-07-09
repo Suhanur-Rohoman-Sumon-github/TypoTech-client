@@ -5,13 +5,12 @@ import { Label } from "@radix-ui/react-label";
 import { IoRocket } from "react-icons/io5";
 const Footer = () => {
   return (
-    <footer className="bg-[#dddced] text-[#000000] p-6">
+    <footer className="bg-[#dddced] text-[#000000] ">
       {/* First section: Title, paragraph, input field, and button */}
-      <div className="md:flex items-center justify-between w-10/12 mx-auto">
+      <div className="md:flex items-center justify-between  container mx-auto">
         <div className="mb-6 max-w-md">
-          <NavLink to="/" className=" text-2xl font-bold">
-            <img src={logo} className="h-20 w-20 rounded-full" alt="" />
-          </NavLink>
+          <img src={logo} className="h-20 w-20 rounded-full" alt="" />
+
           <p className="mb-4 font-bold">
             Subscribe to our newsletter to get the latest updates.
           </p>
