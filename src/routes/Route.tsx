@@ -3,6 +3,7 @@ import AboutUs from "@/pages/ui/AboutUs/AboutUs";
 import Contact from "@/pages/ui/contact/Contact";
 import Home from "@/pages/ui/home/Home";
 import Products from "@/pages/ui/Products/Products";
+import SingleProducts from "@/pages/user/SingleProducts";
 import { createBrowserRouter } from "react-router-dom";
 const route = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const route = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/single-page",
+        element: <SingleProducts />,
       },
     ],
   },
