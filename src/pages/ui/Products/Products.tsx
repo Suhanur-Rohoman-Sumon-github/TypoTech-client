@@ -58,7 +58,7 @@ const Products = () => {
         className="relative bg-cover bg-center h-80 flex items-center justify-center text-white"
       >
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-[#000000]">
+          <h1 className="text-4xl font-bold text-[#adaaaa]">
             Welcome to Our Products
           </h1>
           <p className="mt-4 text-lg text-[#000000]">
@@ -68,10 +68,10 @@ const Products = () => {
       </div>
 
       {/* Products section with filtering sidebar and product list */}
-      <div className="md:container mx-auto py-8">
-        <div className="flex justify-between ">
+      <div className="md:container mx-auto py-8 pl-2">
+        <div className="grid grid-cols-4 ">
           {/* Sidebar for filtering */}
-          <div className="px-1  ">
+          <div className="  w-full">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold ">Filter </h2>
               <button
@@ -104,7 +104,7 @@ const Products = () => {
               ))}
             </ul>
 
-            <h2 className="text-xs font-bold mt-6 mb-4">Filter by Price</h2>
+            <h2 className="text-xl font-bold mt-6 mb-4">Filter by Price</h2>
             <div className="mb-4">
               <input
                 type="range"
@@ -114,7 +114,7 @@ const Products = () => {
                 onChange={(e) => setPriceRange([0, e.target.value])}
                 className="text-red-500"
               />
-              <div className="flex justify-between">
+              <div className="flex gap-24">
                 <span>$0</span>
                 <span>${priceRange[1]}</span>
               </div>
@@ -152,7 +152,7 @@ const Products = () => {
           </div>
 
           {/* Product list */}
-          <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ml-4">
+          <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-4">
             <CardMap data={keyboardBrands} />
           </div>
         </div>

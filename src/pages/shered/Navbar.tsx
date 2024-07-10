@@ -28,25 +28,36 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className="hidden md:flex space-x-4 text-[#000000] font-bold">
-            <NavLink to="/" className=" hover: cursor-pointer text-[#00000]">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-[#7C3FFF]" : "nothing"
+              }
+            >
               Home
             </NavLink>
             <NavLink
               to="/products"
-              className=" hover: cursor-pointer text-[#00000]"
+              className={({ isActive }) =>
+                isActive ? "text-[#7C3FFF]" : "nothing"
+              }
             >
               Products
             </NavLink>
 
             <NavLink
               to="/about"
-              className=" hover: cursor-pointer text-[#00000] font-bold"
+              className={({ isActive }) =>
+                isActive ? "text-[#7C3FFF]" : "nothing"
+              }
             >
               About
             </NavLink>
             <NavLink
               to="/contact"
-              className=" hover: cursor-pointer text-[#00000] font-bold"
+              className={({ isActive }) =>
+                isActive ? "text-[#7C3FFF]" : "nothing"
+              }
             >
               Contact
             </NavLink>
