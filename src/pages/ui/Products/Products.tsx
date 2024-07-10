@@ -21,6 +21,32 @@ const Products = () => {
     setSortOrder("");
   };
 
+  const itemsPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate pagination parameters
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = keyboardBrands.slice(indexOfFirstItem, indexOfLastItem);
+  // Calculate total number of pages
+  const totalPages = Math.ceil(keyboardBrands.length / itemsPerPage);
+
+  // Pagination buttons
+  const paginationButtons = [];
+  for (let i = 1; i <= totalPages; i++) {
+    paginationButtons.push(
+      <button
+        key={i}
+        className={`border bg-[#7C3FFF] text-white ${
+          currentPage === i ? "bg-black text-[#7C3FFF]" : " text-[#7C3FFF]"
+        } py-2 px-4 mr-2 rounded focus:outline-none`}
+        onClick={() => setCurrentPage(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
   return (
     <div>
       {/* Section with background image and text */}
@@ -42,20 +68,28 @@ const Products = () => {
       </div>
 
       {/* Products section with filtering sidebar and product list */}
-      <div className="container mx-auto py-8">
-        <div className="flex">
+      <div className="md:container mx-auto py-8">
+        <div className="flex justify-between ">
           {/* Sidebar for filtering */}
-          <div className="w-1/4 pr-4">
-            <h2 className="text-xl font-bold mb-4">Filter by Category</h2>
+          <div className="px-1  ">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold ">Filter </h2>
+              <button
+                className="text-[#7C3FFF] underline"
+                onClick={clearFilters}
+              >
+                reset
+              </button>
+            </div>
             <ul className="space-y-2">
               {categories.map((category, index) => (
-                <li key={index} className="cursor-pointer hover:text-blue-500">
+                <li key={index} className="cursor-pointer ">
                   {category}
                 </li>
               ))}
             </ul>
 
-            <h2 className="text-xl font-bold mt-6 mb-4">Filter by Brand</h2>
+            <h2 className="text-xs font-bold mt-6 mb-4">Filter by Brand</h2>
             <ul className="space-y-2">
               {keyboardBrandNames.map((brand, index) => (
                 <li key={index} className="flex items-center">
@@ -70,7 +104,7 @@ const Products = () => {
               ))}
             </ul>
 
-            <h2 className="text-xl font-bold mt-6 mb-4">Filter by Price</h2>
+            <h2 className="text-xs font-bold mt-6 mb-4">Filter by Price</h2>
             <div className="mb-4">
               <input
                 type="range"
@@ -78,7 +112,7 @@ const Products = () => {
                 max="1000"
                 value={priceRange[1]}
                 onChange={(e) => setPriceRange([0, e.target.value])}
-                className="w-full"
+                className="text-red-500"
               />
               <div className="flex justify-between">
                 <span>$0</span>
@@ -86,7 +120,7 @@ const Products = () => {
               </div>
             </div>
 
-            <h2 className="text-xl font-bold mt-6 mb-4">Sort by Price</h2>
+            <h2 className="text-xs font-bold mt-6 mb-4">Sort by Price</h2>
             <div className="space-y-2">
               <div>
                 <input
@@ -115,20 +149,16 @@ const Products = () => {
                 </label>
               </div>
             </div>
-
-            <button
-              className="mt-6 px-4 py-2 bg-red-500 text-white rounded-md"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
           </div>
 
           {/* Product list */}
-          <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ml-4">
             <CardMap data={keyboardBrands} />
           </div>
         </div>
+      </div>
+      <div className="flex justify-center mt-10 space-x-2  pb-8">
+        {paginationButtons}
       </div>
     </div>
   );

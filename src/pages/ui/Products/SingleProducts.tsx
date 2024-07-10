@@ -182,8 +182,10 @@ const SingleProducts = () => {
         </div>
       </div>
       <div className="py-8">
-        <h1 className="text-2xl text-center font-bold">You might also like</h1>
-        <div>
+        <h1 className="text-2xl text-center font-bold mb-8">
+          You might also like
+        </h1>
+        <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <CardMap data={keyboardBrands} />
         </div>
       </div>

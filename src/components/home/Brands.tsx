@@ -30,7 +30,7 @@ const Brands = () => {
               className="w-4 h-4"
               loading="lazy"
             />
-            <p>{imge.title}</p>
+            <p className="hidden sm:block">{imge.title}</p>
           </div>
         </SwiperSlide>
       ))}
