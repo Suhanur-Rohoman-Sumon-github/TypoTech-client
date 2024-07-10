@@ -4,12 +4,12 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Autoplay, FreeMode } from "swiper/modules";
-import { companiesLogos } from "@/data/data";
+import { advertisement } from "@/data/data";
 const Brands = () => {
   return (
     <Swiper
       slidesPerView={5}
-      spaceBetween={30}
+      spaceBetween={10}
       freeMode={true}
       pagination={{
         clickable: false,
@@ -21,15 +21,16 @@ const Brands = () => {
       modules={[FreeMode, Autoplay]}
       className=" mt-4"
     >
-      {companiesLogos.map((imge, index) => (
+      {advertisement.map((imge, index) => (
         <SwiperSlide key={index}>
-          <div className="">
+          <div className="flex items-center gap-3">
             <img
               src={imge.image}
               alt="company images"
-              className="w-12 h-12"
+              className="w-4 h-4"
               loading="lazy"
             />
+            <p>{imge.title}</p>
           </div>
         </SwiperSlide>
       ))}

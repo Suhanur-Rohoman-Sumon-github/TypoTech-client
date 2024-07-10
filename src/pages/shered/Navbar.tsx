@@ -4,6 +4,8 @@ import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-
 import { IoSearchSharp } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import ShopingBag from "@/components/ShopingBag";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,12 +29,7 @@ const Navbar = () => {
             >
               Products
             </NavLink>
-            <NavLink
-              to="/projects"
-              className=" hover: cursor-pointer text-[#00000] font-bold"
-            >
-              Projects
-            </NavLink>
+
             <NavLink
               to="/about"
               className=" hover: cursor-pointer text-[#00000] font-bold"
@@ -51,7 +48,34 @@ const Navbar = () => {
               <IoSearchSharp className="h-8 w-8" />
             </div>
             <div className="">
-              <FaShoppingCart className="h-8 w-8" />
+              <Sheet>
+                <SheetTrigger>
+                  <FaShoppingCart className="h-8 w-8" />
+                </SheetTrigger>
+                <SheetContent className="max-h-screen overflow-y-scroll p-4 max-w-[850px]">
+                  <h1 className="text-2xl font-bold p-8 border-b">
+                    Shopping Bag{" "}
+                    <span className="text-xl text-[#7C3FFF]">(2 Item)</span>{" "}
+                  </h1>
+
+                  <ShopingBag />
+                  <div className="pb-20">
+                    {/* Checkout Button */}
+                    <div className=" mt-4">
+                      <p className="border p-1 mt-2 text-center">
+                        4-interest free payments of $18.75 with Klama.{" "}
+                        <span className=" underline  text-[#7C3FFF]">
+                          Learn more
+                        </span>
+                      </p>
+
+                      <button className="button-primary w-full mt-4">
+                        Checkout
+                      </button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
             <Avatar>
               <AvatarImage

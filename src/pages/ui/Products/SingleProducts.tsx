@@ -5,15 +5,19 @@ import { GrFavorite } from "react-icons/gr";
 import { IoIosStar, IoMdHome } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { keyboardBrands } from "@/data/data";
-import { Card, CardContent } from "@/components/ui/card";
-import Rating from "react-rating";
-import { CiStar } from "react-icons/ci";
-import { IoStar } from "react-icons/io5";
-import { FaArrowCircleRight, FaShoppingCart } from "react-icons/fa";
+
+import CardMap from "@/components/home/CardMap";
+import { useParams } from "react-router-dom";
 
 const SingleProducts = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
+  const { id } = useParams();
+
+  const singleData = keyboardBrands.find((product) => product.id == id);
+  console.log(singleData);
+
+  const { image, title, brand, availableQuantity, price, rating } = singleData;
 
   const handleDecrease = () => {
     setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
@@ -31,21 +35,14 @@ const SingleProducts = () => {
       setQuantity(1);
     }
   };
-  const starRatings = [
-    { stars: 5, count: 10 },
-    { stars: 4, count: 8 },
-    { stars: 3, count: 5 },
-    { stars: 2, count: 2 },
-    { stars: 1, count: 1 },
-  ];
-  const totalReviews = starRatings.reduce((acc, curr) => acc + curr.count, 0);
+
   return (
-    <div className="container   mt-32">
-      <div className="flex items-center justify-between  ">
+    <div className="container   md:mt-32">
+      <div className="md:flex items-center justify-between  ">
         {/* Left side: Product image */}
-        <div className="w-[80%] ">
+        <div className="md:w-[80%] ">
           <img
-            src="https://mechanicalkeyboards.com/cdn/shop/files/FullSize_Collection.jpg?v=1700508291&width=360"
+            src={image}
             alt="Product"
             className="w-full h-[400px] object-cover"
           />
@@ -107,12 +104,12 @@ const SingleProducts = () => {
         </div>
 
         {/* Right side: Product details */}
-        <div className="w-1/2 p-4 h-full ml-9 ">
-          <p className=""> Azio</p>
-          <h1 className="text-2xl font-bold">Retro Mechanical Keyboard</h1>
+        <div className="md:w-1/2 p-4 h-full md:ml-9 ">
+          <p className=""> {brand}</p>
+          <h1 className="text-2xl font-bold">{title}</h1>
 
           <div className="flex justify-between items-center my-4 border p-4">
-            <p className="text-xl font-semibold text-[#7C3FFF]">$159.99</p>
+            <p className="text-xl font-semibold text-[#7C3FFF]">{price}</p>
             <p className="flex items-center">
               <FaCheck className="mr-2 text-green-500" />
               In Stock
@@ -145,7 +142,7 @@ const SingleProducts = () => {
           </div>
           <p className="border p-1 mt-2 text-center">
             4-interest free payments of $18.75 with Klama.{" "}
-            <span className=" underline ">Learn more</span>
+            <span className=" underline  text-[#7C3FFF]">Learn more</span>
           </p>
           <div className="flex space-x-4 my-4 ">
             <button className="button-primary w-full text-center mx-auto">
@@ -187,55 +184,7 @@ const SingleProducts = () => {
       <div className="py-8">
         <h1 className="text-2xl text-center font-bold">You might also like</h1>
         <div>
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-4">
-            {keyboardBrands.slice(0, 4).map((item) => (
-              <div className="group" key={item.id}>
-                <Card className="relative overflow-hidden  rounded-md transform cursor-pointer transition-transform duration-1000 ease-in-out group-hover:scale-90">
-                  <CardContent>
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-64 p-4 "
-                      loading="lazy"
-                    />
-                    <div className="px-2 py-4">
-                      <h1 className="text-xl font-bold">
-                        {item.title && item.title.length > 15
-                          ? item.title.slice(0, 15) + "(...)"
-                          : item.title}
-                      </h1>
-                      <p className="text-[#7C3FFF] font-bold text-xs mt-2">
-                        {`Price: ${item.price}`}
-                      </p>
-                      <p className="text-[#7C3FFF] font-bold text-xs mt-2">
-                        {`Brand : ${item.brand}`}
-                      </p>
-                      <p className="text-[#ffd700] font-bold text-xl mt-2 ">
-                        <Rating
-                          placeholderRating={item.rating}
-                          emptySymbol={<CiStar />}
-                          placeholderSymbol={<IoStar />}
-                          fullSymbol={<IoIosStar />}
-                        />
-                      </p>
-                    </div>
-                  </CardContent>
-
-                  <div className="absolute h-full w-full bg-black opacity-0 hover:opacity-25 cursor-pointer transition-all duration-300 top-0 left-0 z-10 "></div>
-                  <div className=" absolute top-[95%] left-[45%]">
-                    <button className=" absolute  z-30  transform -translate-x-1/2 -translate-y-1/2   rounded hidden group-hover:block transition-all duration-700 ease-in-out">
-                      <FaArrowCircleRight className="text-2xl  text-[#7C3FFF]" />
-                    </button>
-                  </div>
-                  <div className=" absolute top-[95%] right-[45%]">
-                    <button className=" absolute top  z-30  transform -translate-x-1/2 -translate-y-1/2   rounded hidden group-hover:block transition-all duration-700 ease-in-out">
-                      <FaShoppingCart className="text-2xl  text-[#7C3FFF]" />
-                    </button>
-                  </div>
-                </Card>
-              </div>
-            ))}
-          </div>
+          <CardMap data={keyboardBrands} />
         </div>
       </div>
     </div>

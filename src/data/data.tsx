@@ -4,6 +4,75 @@ import w3 from "../assets/w-3.jfif";
 import w4 from "../assets/w-4.png";
 import w5 from "../assets/w-5.png";
 import w6 from "../assets/w-6.png";
+import p1 from "../assets/best price.png";
+import p2 from "../assets/discunt.png";
+import p3 from "../assets/first shiping.png";
+import p4 from "../assets/new arival.png";
+import p5 from "../assets/pakaging.png";
+import p6 from "../assets/payments.png";
+import p7 from "../assets/special offar.png";
+import p8 from "../assets/support.png";
+
+export const advertisement = [
+  {
+    id: 1,
+    image: p6,
+    title: "Safe Payments",
+  },
+  {
+    id: 2,
+    image:
+      "https://icms-image.slatic.net/images/ims-web/1b7e5ccb-89fc-4383-bc27-4586e82195be.png",
+    title: "Nationwide Delivery",
+  },
+  {
+    id: 3,
+    image:
+      "https://icms-image.slatic.net/images/ims-web/f2a7f550-3a25-478d-9879-e6aa419c7ebf.png",
+    title: "Free & Easy Return",
+  },
+  {
+    id: 4,
+    image: p1,
+    title: "Best Price Guaranteed",
+  },
+  {
+    id: 5,
+    image:
+      "https://icms-image.slatic.net/images/ims-web/781b5194-65f0-4ae5-b7a6-003bc717054f.png",
+    title: "100% Authentic Products",
+  },
+  {
+    id: 9,
+    image: p8,
+    title: "24/7 Customer Support",
+  },
+  {
+    id: 10,
+    image: p3,
+    title: "Fast Shipping",
+  },
+  {
+    id: 11,
+    image: p5,
+    title: "Secure Packaging",
+  },
+  {
+    id: 12,
+    image: p2,
+    title: "Exclusive Discounts",
+  },
+  {
+    id: 13,
+    image: p4,
+    title: "New Arrivals",
+  },
+  {
+    id: 14,
+    image: p7,
+    title: "Special Offers",
+  },
+];
 
 export const companiesLogos = [
   {

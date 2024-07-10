@@ -1,10 +1,9 @@
 import MainLayOut from "@/components/layouts/MainLayOut";
 import AboutUs from "@/pages/ui/AboutUs/AboutUs";
 import ContactUs from "@/pages/ui/contact/Contact";
-import Contact from "@/pages/ui/contact/Contact";
 import Home from "@/pages/ui/home/Home";
 import Products from "@/pages/ui/Products/Products";
-import SingleProducts from "@/pages/user/SingleProducts";
+import SingleProducts from "@/pages/ui/Products/SingleProducts";
 import { createBrowserRouter } from "react-router-dom";
 const route = createBrowserRouter([
   {
@@ -28,7 +27,7 @@ const route = createBrowserRouter([
         element: <ContactUs />,
       },
       {
-        path: "/single-page",
+        path: "/products/:id",
         element: <SingleProducts />,
       },
     ],

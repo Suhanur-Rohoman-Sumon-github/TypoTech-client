@@ -1,7 +1,6 @@
-import { companiesLogos, keyboardBrands } from "@/data/data";
+import { companiesLogos } from "@/data/data";
 import Header from "../ui/Header";
 import { Card } from "../ui/card";
-import { FaArrowCircleRight } from "react-icons/fa";
 
 const OurBrands = () => {
   return (

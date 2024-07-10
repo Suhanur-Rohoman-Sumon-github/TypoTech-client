@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div
@@ -18,9 +19,11 @@ const Banner = () => {
             keyboards, gaming setups, and office essentials. Find your perfect
             keyboard today.
           </p>
-          <button className="button-primary">
-            Shop Now <FaArrowRight />
-          </button>
+          <Link to={"/products"}>
+            <button className="button-primary">
+              Shop Now <FaArrowRight />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
