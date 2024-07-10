@@ -7,7 +7,7 @@
     @apply bg-[#7C3FFF] flex items-center justify-center gap-2 text-white font-bold py-[11px] px-[32px] rounded hover:bg-[#7C3FFF];
   }
   .button-icon {
-    @apply bg-[#7C3FFF]  gap-2 text-white font-bold py-[12px] ml-2 mt-7 px-[15px] rounded hover:bg-[#7C3FFF];
+    @apply bg-[#7C3FFF]  gap-2 text-white font-bold py-[10px] ml-2  px-[15px] rounded hover:bg-[#7C3FFF];
   }
 }
 

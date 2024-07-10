@@ -4,6 +4,7 @@ import ContactUs from "@/pages/ui/contact/Contact";
 import Home from "@/pages/ui/home/Home";
 import Products from "@/pages/ui/Products/Products";
 import SingleProducts from "@/pages/ui/Products/SingleProducts";
+import Checkout from "@/pages/user/Checkout";
 import { createBrowserRouter } from "react-router-dom";
 const route = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const route = createBrowserRouter([
       {
         path: "/products/:id",
         element: <SingleProducts />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },
