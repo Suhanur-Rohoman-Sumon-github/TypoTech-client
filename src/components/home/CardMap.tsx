@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const CardMap = ({ data }) => {
   return (
-    <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <>
       {data.slice(0, 8).map((item) => (
         <div className="group" key={item.id}>
           <Card className="relative overflow-hidden  rounded-md transform cursor-pointer transition-transform duration-1000 ease-in-out group-hover:scale-90">
@@ -60,7 +60,7 @@ const CardMap = ({ data }) => {
           </Card>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
