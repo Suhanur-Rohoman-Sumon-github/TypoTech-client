@@ -1,5 +1,6 @@
 import { MdDelete } from "react-icons/md";
 import TotalCharges from "./TotalCharges";
+import ScrollToTop from "../cutom/useScrolltoTop";
 
 const MyBag = () => {
   const cartItems = [
@@ -36,6 +37,7 @@ const MyBag = () => {
 
   return (
     <div className="container mx-auto py-8">
+      <ScrollToTop />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left side: Shopping Bag */}
         <div className="flex flex-col">

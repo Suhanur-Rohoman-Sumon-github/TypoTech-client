@@ -1,10 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-removebg-preview.png";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 import ShopingBag from "@/components/ShopingBag";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +28,9 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className="hidden md:flex space-x-4 text-[#000000] font-bold">
+            <NavLink to="/" className=" hover: cursor-pointer text-[#00000]">
+              Home
+            </NavLink>
             <NavLink
               to="/products"
               className=" hover: cursor-pointer text-[#00000]"
@@ -68,10 +76,13 @@ const Navbar = () => {
                           Learn more
                         </span>
                       </p>
-
-                      <button className="button-primary w-full mt-4">
-                        Checkout
-                      </button>
+                      <Link to={"/checkout"}>
+                        <SheetClose className="w-full">
+                          <button className="button-primary w-full mt-4">
+                            Checkout
+                          </button>
+                        </SheetClose>
+                      </Link>{" "}
                     </div>
                   </div>
                 </SheetContent>
