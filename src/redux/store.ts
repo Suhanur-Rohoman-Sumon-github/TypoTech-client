@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import CardSlice from './fetures/cardslice/CardSlice'
 import { baseApi } from './api/baseapi'
+import cardSlice from './fetures/cards/cardSlice'
 // ...
 
 export const store = configureStore({
   reducer: {
-    cards: CardSlice,
+    cards: cardSlice,
     [baseApi.reducerPath]: baseApi.reducer,
     
   },

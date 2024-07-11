@@ -4,19 +4,25 @@ import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-
 import { IoSearchSharp } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import emtyShoping from "../../assets/emty shoping.jfif";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetTrigger,
-  SheetClose,
 } from "@/components/ui/sheet";
-import ShopingBag from "@/components/ShopingBag";
+import ShopingBag from "@/components/shopingBag/ShopingBag";
+import { useGetSingleUSerCartQuery } from "@/redux/fetures/cards/cardsApi";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const userId = localStorage.getItem("userId");
+
+  const { data: userCardsData } = useGetSingleUSerCartQuery(userId);
 
   return (
     <nav className="md:fixed md:z-50 md:top-0 md:w-10/12 md:mx-auto  md:left-[105px] md:mt-6">
@@ -72,28 +78,45 @@ const Navbar = () => {
                   <FaShoppingCart className="h-8 w-8" />
                 </SheetTrigger>
                 <SheetContent className="max-h-screen overflow-y-scroll p-4 max-w-[850px]">
-                  <h1 className="text-2xl font-bold p-8 border-b">
+                  <h1 className="text-2xl font-bold p-8 border-b text-center">
                     Shopping Bag{" "}
-                    <span className="text-xl text-[#7C3FFF]">(2 Item)</span>{" "}
+                    <span className="text-xl text-[#7C3FFF]">
+                      {`${userCardsData?.data?.length} items`}
+                    </span>{" "}
                   </h1>
 
                   <ShopingBag />
                   <div className="pb-20">
                     {/* Checkout Button */}
-                    <div className=" mt-4">
-                      <p className="border p-1 mt-2 text-center">
-                        4-interest free payments of $18.75 with Klama.{" "}
-                        <span className=" underline  text-[#7C3FFF]">
-                          Learn more
-                        </span>
-                      </p>
-                      <Link to={"/checkout"}>
-                        <SheetClose className="w-full">
-                          <button className="button-primary w-full mt-4">
-                            Checkout
-                          </button>
-                        </SheetClose>
-                      </Link>{" "}
+
+                    <div className="mt-4">
+                      {userCardsData?.data?.length > 0 ? (
+                        <div>
+                          <p className="border p-1 mt-2 text-center">
+                            4-interest free payments of $18.75 with Klama.{" "}
+                            <span className="underline text-[#7C3FFF]">
+                              Learn more
+                            </span>
+                          </p>
+                          <Link to={"/checkout"}>
+                            <div className="w-full">
+                              <SheetClose className="w-full">
+                                <button className="button-primary w-full mt-4">
+                                  Checkout
+                                </button>
+                              </SheetClose>
+                            </div>
+                          </Link>
+                          ,{" "}
+                        </div>
+                      ) : (
+                        <div>
+                          <img src={emtyShoping} className="mx-auto" alt="" />
+                          <h1 className="text-center text-4xl font-bold">
+                            No Items Found
+                          </h1>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </SheetContent>

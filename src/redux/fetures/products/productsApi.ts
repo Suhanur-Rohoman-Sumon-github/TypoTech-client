@@ -9,15 +9,10 @@ const productsApi = baseApi.injectEndpoints({
       }),
     }),
     getSingleProduct: builder.query({
-      query: (id) => {
-        
-        console.log("ID passed to query:", id); // Log the id here
-        return {
-           
-          url: `/products/${id}`, // Use the id dynamically
-          method: "GET",
-        };
-      },
+      query: (id) => ({
+          url: `/products/${id}`, 
+          method: "GET"
+      }),
     }),
   }),
 });
