@@ -7,9 +7,10 @@ import { FaArrowCircleRight, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CardMap = ({ data }) => {
+  console.log(data);
   return (
     <>
-      {data.slice(0, 8).map((item) => (
+      {data?.slice(0, 8)?.map((item) => (
         <div className="group" key={item.id}>
           <Card className="relative overflow-hidden  rounded-md transform cursor-pointer transition-transform duration-1000 ease-in-out group-hover:scale-90">
             <CardContent>
@@ -42,11 +43,11 @@ const CardMap = ({ data }) => {
               </div>
             </CardContent>
 
-            <Link to={`/products/${item.id}`}>
+            <Link to={`/products/${item._id}`}>
               <div className="absolute h-full w-full bg-black opacity-0 hover:opacity-25 cursor-pointer transition-all duration-300 top-0 left-0 z-10 "></div>
             </Link>
             <div className=" absolute top-[95%] left-[45%]">
-              <Link to={`/products/${item.id}`}>
+              <Link to={`/products/${item._id}`}>
                 <button className=" absolute  z-30  transform -translate-x-1/2 -translate-y-1/2   rounded hidden group-hover:block transition-all duration-700 ease-in-out">
                   <FaArrowCircleRight className="text-2xl  text-[#7C3FFF]" />
                 </button>

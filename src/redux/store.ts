@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import CardSlice from './fetures/cardslice/CardSlice'
+import { baseApi } from './api/baseapi'
 // ...
 
 export const store = configureStore({
   reducer: {
     cards: CardSlice,
+    [baseApi.reducerPath]: baseApi.reducer,
     
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

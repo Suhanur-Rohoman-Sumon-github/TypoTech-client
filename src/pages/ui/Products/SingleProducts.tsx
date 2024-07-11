@@ -8,16 +8,31 @@ import { keyboardBrands } from "@/data/data";
 
 import CardMap from "@/components/home/CardMap";
 import { useParams } from "react-router-dom";
+import {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+} from "@/redux/fetures/products/productsApi";
+import { Skeleton } from "@/components/ui/skeleton";
+import SingleProductsSkeleton from "@/components/skeleton/SingleProductsSkeleton";
 
 const SingleProducts = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const { id } = useParams();
+  const { data: singleProduct, isLoading: singleProductLoading } =
+    useGetSingleProductQuery(id);
+  const { data: products, isLoading: productsLoading } =
+    useGetAllProductsQuery(undefined);
 
-  const singleData = keyboardBrands.find((product) => product.id == id);
-  console.log(singleData);
+  if (singleProductLoading || productsLoading) {
+    // Skeleton loading UI while data is loading
+    return <SingleProductsSkeleton />;
+  }
 
-  const { image, title, brand, availableQuantity, price, rating } = singleData;
+  const SingleProducts = singleProduct?.data;
+
+  const { image, title, brand, availableQuantity, price } =
+    SingleProducts || {};
 
   const handleDecrease = () => {
     setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
@@ -37,15 +52,17 @@ const SingleProducts = () => {
   };
 
   return (
-    <div className="container   md:mt-32">
-      <div className="md:flex items-center justify-between  ">
+    <div className="container md:mt-32">
+      <div className="md:flex items-center justify-between">
         {/* Left side: Product image */}
-        <div className="md:w-[80%] ">
-          <img
-            src={image}
-            alt="Product"
-            className="w-full h-[400px] object-cover"
-          />
+        <div className="md:w-[80%]">
+          {image && (
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-[400px] object-cover"
+            />
+          )}
           {/* Tabs for additional information */}
           <div className="">
             <div className="flex border-b">
@@ -104,7 +121,7 @@ const SingleProducts = () => {
         </div>
 
         {/* Right side: Product details */}
-        <div className="md:w-1/2 p-4 h-full md:ml-9 ">
+        <div className="md:w-1/2 p-4 h-full md:ml-9">
           <p className=""> {brand}</p>
           <h1 className="text-2xl font-bold">{title}</h1>
 
@@ -142,9 +159,9 @@ const SingleProducts = () => {
           </div>
           <p className="border p-1 mt-2 text-center">
             4-interest free payments of $18.75 with Klama.{" "}
-            <span className=" underline  text-[#7C3FFF]">Learn more</span>
+            <span className="underline text-[#7C3FFF]">Learn more</span>
           </p>
-          <div className="flex space-x-4 my-4 ">
+          <div className="flex space-x-4 my-4">
             <button className="button-primary w-full text-center mx-auto">
               <MdShoppingCart /> Add to Cart
             </button>
@@ -155,9 +172,9 @@ const SingleProducts = () => {
               <GrFavorite /> Favourite
             </button>
           </div>
-          <div className="flex justify-between mt-4 w-full  gap-4">
-            <div className="p-4 border w-full border-gray-300 rounded  bg-[#F3EDFF]">
-              <p className=" font-bold flex items-center gap-2 ">
+          <div className="flex justify-between mt-4 w-full gap-4">
+            <div className="p-4 border w-full border-gray-300 rounded bg-[#F3EDFF]">
+              <p className="font-bold flex items-center gap-2">
                 <FaLocationDot className="text-red-500" />
                 Find in Store
               </p>
@@ -166,8 +183,8 @@ const SingleProducts = () => {
                 this product.
               </p>
             </div>
-            <div className="p-4 border w-full bg-[#F3EDFF] border-gray-300 rounded ">
-              <p className="font-bold flex  items-center gap-2 ">
+            <div className="p-4 border w-full bg-[#F3EDFF] border-gray-300 rounded">
+              <p className="font-bold flex items-center gap-2">
                 <IoMdHome className="text-red-500" /> Find Delivery
               </p>
               <p>Choose the best shipping method that suits your needs</p>
@@ -176,7 +193,7 @@ const SingleProducts = () => {
         </div>
       </div>
       <div className="">
-        <div className="mt-32 ">
+        <div className="mt-32">
           <h2 className="text-2xl font-bold">Customer Reviews</h2>
           <p>No reviews yet. Be the first to write a review!</p>
         </div>
@@ -185,8 +202,8 @@ const SingleProducts = () => {
         <h1 className="text-2xl text-center font-bold mb-8">
           You might also like
         </h1>
-        <div className="grid gap-4 col-span-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          <CardMap data={keyboardBrands} />
+        <div className="grid gap-4 col-span-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <CardMap data={products?.data} />
         </div>
       </div>
     </div>

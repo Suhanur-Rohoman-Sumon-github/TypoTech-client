@@ -234,15 +234,6 @@ export const keyboardBrands = [
     rating: 4.2,
   },
   {
-    id: 10,
-    image: "https://example.com/images/keyboard10.jpg",
-    title: "Programmable Mechanical Keyboard",
-    brand: "Ducky",
-    availableQuantity: 95,
-    price: "$119.99",
-    rating: 4.8,
-  },
-  {
     id: 11,
     image:
       "https://cdn.shopify.com/s/files/1/0295/3245/4956/products/9_b05ac7a2-3d98-43fe-880f-fb83c36145bd-removebg.png?v=1676553405&width=400",
