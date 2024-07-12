@@ -31,7 +31,7 @@ const Products = () => {
   // Calculate pagination parameters
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = keyboardBrands.slice(indexOfFirstItem, indexOfLastItem);
+  keyboardBrands.slice(indexOfFirstItem, indexOfLastItem);
   // Calculate total number of pages
   const totalPages = Math.ceil(keyboardBrands.length / itemsPerPage);
 
