@@ -1,39 +1,39 @@
 import CardMap from "@/components/home/CardMap";
 import ProductPageScheleton from "@/components/skeleton/ProductPageScheleton";
-import { keyboardBrands } from "@/data/data";
+
 import { useGetAllProductsQuery } from "@/redux/fetures/products/productsApi";
-import { useState } from "react";
-// Import your Skeleton component
+
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+// Assuming you are using Heroicons for icons
+import { setCurrentPage } from "@/redux/fetures/products/products.slice";
+import ProductsSearching from "@/components/products/productsfilter/ProductsSerching";
+import DisPlayProductsFilter from "@/components/products/productsfilter/DisPlayProductsFilter";
+import FilterBybrands from "@/components/products/productsfilter/FilterBybrands";
+import FilterByProductsPrice from "@/components/products/productsfilter/FilterByProductsPrice";
+import ClearProducts from "@/components/products/productsfilter/ClearProducts";
 
 const Products = () => {
-  const { data: products, isLoading } = useGetAllProductsQuery(undefined);
+  const dispatch = useDispatch();
+  const { sortOrder, currentPage, searchQuery } = useSelector(
+    (state: RootState) => state.products
+  );
 
   const categories = ["All", "Category A", "Category B", "Category C"];
-  const keyboardBrandNames = ["Brand A", "Brand B", "Brand C"];
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [sortOrder, setSortOrder] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleBrandChange = (brand: string) => {
-    setSelectedBrands((prev) =>
-      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
-    );
-  };
+  const { data: products, isLoading } = useGetAllProductsQuery({
+    search: searchQuery,
+    sort: sortOrder,
+    page: currentPage,
+    limit: 10,
+  });
 
-  const clearFilters = () => {
-    setSelectedBrands([]);
-    setPriceRange([0, 1000]);
-    setSortOrder("");
-  };
+  if (isLoading) {
+    return <ProductPageScheleton />;
+  }
 
-  const itemsPerPage = 3;
-  // Calculate pagination parameters
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  keyboardBrands.slice(indexOfFirstItem, indexOfLastItem);
   // Calculate total number of pages
-  const totalPages = Math.ceil(keyboardBrands.length / itemsPerPage);
+  const totalPages = products?.totalPages || 1;
 
   // Pagination buttons
   const paginationButtons = [];
@@ -44,7 +44,7 @@ const Products = () => {
         className={`border bg-[#7C3FFF] text-white ${
           currentPage === i ? "bg-black text-[#7C3FFF]" : " text-[#7C3FFF]"
         } py-2 px-4 mr-2 rounded focus:outline-none`}
-        onClick={() => setCurrentPage(i)}
+        onClick={() => dispatch(setCurrentPage(i))}
       >
         {i}
       </button>
@@ -71,99 +71,44 @@ const Products = () => {
         </div>
       </div>
 
-      {isLoading ? (
-        <ProductPageScheleton />
-      ) : (
-        <div className="md:container mx-auto py-8 pl-2">
-          <div className="grid grid-cols-4">
-            {/* Sidebar for filtering */}
-            <div className="w-full">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold">Filter</h2>
-                <button
-                  className="text-[#7C3FFF] underline"
-                  onClick={clearFilters}
-                >
-                  reset
-                </button>
-              </div>
-              <ul className="space-y-2">
-                {categories.map((category, index) => (
-                  <li key={index} className="cursor-pointer">
-                    {category}
-                  </li>
-                ))}
-              </ul>
-
-              <h2 className="text-xs font-bold mt-6 mb-4">Filter by Brand</h2>
-              <ul className="space-y-2">
-                {keyboardBrandNames.map((brand, index) => (
-                  <li key={index} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={selectedBrands.includes(brand)}
-                      onChange={() => handleBrandChange(brand)}
-                    />
-                    {brand}
-                  </li>
-                ))}
-              </ul>
-
-              <h2 className="text-xl font-bold mt-6 mb-4">Filter by Price</h2>
-              <div className="mb-4">
-                <input
-                  type="range"
-                  min="0"
-                  max="1000"
-                  value={priceRange[1]}
-                  onChange={(e) => setPriceRange([0, Number(e.target.value)])}
-                  className="text-red-500"
-                />
-                <div className="flex gap-24">
-                  <span>$0</span>
-                  <span>${priceRange[1]}</span>
-                </div>
-              </div>
-
-              <h2 className="text-xs font-bold mt-6 mb-4">Sort by Price</h2>
-              <div className="space-y-2">
-                <div>
-                  <input
-                    type="radio"
-                    id="lowToHigh"
-                    name="sortOrder"
-                    value="lowToHigh"
-                    checked={sortOrder === "lowToHigh"}
-                    onChange={() => setSortOrder("lowToHigh")}
-                  />
-                  <label htmlFor="lowToHigh" className="ml-2">
-                    Low to High
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="highToLow"
-                    name="sortOrder"
-                    value="highToLow"
-                    checked={sortOrder === "highToLow"}
-                    onChange={() => setSortOrder("highToLow")}
-                  />
-                  <label htmlFor="highToLow" className="ml-2">
-                    High to Low
-                  </label>
-                </div>
+      <div className="md:container mx-auto py-8 pl-2">
+        <div className="grid grid-cols-4">
+          {/* Sidebar for filtering */}
+          <div className="w-full">
+            <div className="p-4 mb-4 border">
+              <ClearProducts />
+              {/* Display selected filters */}
+              <div className="mt-4">
+                <DisPlayProductsFilter />
               </div>
             </div>
+            {/* category */}
+            <ul className="space-y-2 border p-4">
+              {categories.map((category, index) => (
+                <li key={index} className="cursor-pointer">
+                  {category}
+                </li>
+              ))}
+            </ul>
 
-            {/* Product list */}
-            <div className="grid gap-4 col-span-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-4">
+            <h2 className="text-xs font-bold mt-6 mb-4">Filter by Brand</h2>
+            <FilterBybrands />
+
+            <h2 className="text-xl font-bold mt-6 mb-4">Filter by Price</h2>
+            <FilterByProductsPrice />
+          </div>
+
+          {/* Product list */}
+          <div className="col-span-3">
+            <div className="flex justify-between items-center p-4 sticky top-0 bg-white z-10">
+              <ProductsSearching />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-4">
               <CardMap data={products?.data} />
             </div>
           </div>
         </div>
-      )}
+      </div>
       <div className="flex justify-center mt-10 space-x-2 pb-8">
         {paginationButtons}
       </div>

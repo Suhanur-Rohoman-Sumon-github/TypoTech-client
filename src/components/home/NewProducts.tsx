@@ -14,7 +14,7 @@ interface Product {
 }
 
 const NewProducts = () => {
-  const { data: products } = useGetAllProductsQuery(undefined);
+  const { data: products } = useGetAllProductsQuery({ limits: 4 });
   return (
     <div className="">
       <Header title={"New Products"} subTitle={"New Arrivals"} />

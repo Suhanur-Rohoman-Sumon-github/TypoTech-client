@@ -40,22 +40,22 @@ const SingleProducstCustomerReview = ({
       {reviews?.length === 0 ? (
         <p>No reviews yet. Be the first to write a review!</p>
       ) : (
-        reviews.map((review, index) => (
+        reviews?.map((review, index) => (
           <div key={index} className="mt-4 border p-4 rounded-md">
             <div className="flex items-center mb-2">
               <img
                 src={review.image}
-                alt={review.name}
+                alt={review?.name}
                 className="w-10 h-10 rounded-full object-cover mr-2"
               />
               <div>
                 <p className="font-semibold">{review.name}</p>
                 <div className="flex items-center">
-                  {renderStars(review.rating)}
+                  {renderStars(review?.rating)}
                 </div>
               </div>
             </div>
-            <p className="text-gray-600">{review.comment}</p>
+            <p className="text-gray-600">{review?.comment}</p>
           </div>
         ))
       )}

@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "@/redux/fetures/products/productsApi";
 const BestSellsProducts = () => {
-  const { data: products } = useGetAllProductsQuery(undefined);
+  const { data: products } = useGetAllProductsQuery({ limits: 4 });
   return (
     <div className="">
       <Header

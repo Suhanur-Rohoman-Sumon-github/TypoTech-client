@@ -3,12 +3,14 @@ import { baseApi } from './api/baseapi'
 import cardSlice from './fetures/cards/cardSlice'
 import cupons from './fetures/cupons/cupons'
 import paymentsSlice from './fetures/payments/paymentsSlice'
+import productsSlice from './fetures/products/products.slice'
 // ...
 
 export const store = configureStore({
   reducer: {
     cards: cardSlice,
     cupon:cupons ,
+    products:productsSlice,
     payment:paymentsSlice ,
     [baseApi.reducerPath]: baseApi.reducer,
     

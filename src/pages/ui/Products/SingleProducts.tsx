@@ -13,8 +13,10 @@ const SingleProducts = () => {
   const { id } = useParams();
   const { data: singleProduct, isLoading: singleProductLoading } =
     useGetSingleProductQuery(id);
-  const { data: products, isLoading: productsLoading } =
-    useGetAllProductsQuery(undefined);
+
+  const { data: products, isLoading: productsLoading } = useGetAllProductsQuery(
+    { limits: 4 }
+  );
 
   if (singleProductLoading || productsLoading) {
     return <SingleProductsSkeleton />;
