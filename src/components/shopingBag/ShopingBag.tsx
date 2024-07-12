@@ -3,6 +3,7 @@ import {
   useGetSingleUSerCartQuery,
 } from "@/redux/fetures/cards/cardsApi";
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 type TShopping = {
   _id: string;
@@ -12,14 +13,31 @@ type TShopping = {
   price: number;
 };
 
-const ShoppingBag = () => {
+type ShoppingBagProps = {
+  SheetClose: React.FC<{ children: React.ReactNode }>;
+};
+
+const ShoppingBag = ({ SheetClose }: ShoppingBagProps) => {
   const userId = localStorage.getItem("userId");
   const [deleteProducts] = useDeleteProductsMutation();
   const { data: userCardsData } = useGetSingleUSerCartQuery(userId);
 
   const handleCartProductsDelete = async (id: string) => {
-    const deletes = await deleteProducts(id);
-    console.log(deletes);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      deleteProducts(id);
+
+      Swal.fire("Deleted!", "Your product has been deleted.", "success");
+    }
   };
 
   return (
@@ -45,12 +63,14 @@ const ShoppingBag = () => {
             <div className="actions flex justify-between items-center mt-4 ">
               <div></div>
 
-              <button
-                onClick={() => handleCartProductsDelete(cart._id)}
-                className=" text-2xl text-red-500 rounded-lg"
-              >
-                <MdDelete />
-              </button>
+              <SheetClose>
+                <button
+                  onClick={() => handleCartProductsDelete(cart._id)}
+                  className=" text-2xl text-red-500 rounded-lg"
+                >
+                  <MdDelete />
+                </button>
+              </SheetClose>
             </div>
           </div>
         </div>

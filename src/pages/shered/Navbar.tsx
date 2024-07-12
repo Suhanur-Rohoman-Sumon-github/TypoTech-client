@@ -91,7 +91,7 @@ const Navbar = () => {
                     </span>{" "}
                   </h1>
 
-                  <ShopingBag />
+                  <ShopingBag SheetClose={SheetClose} />
                   <div className="pb-20">
                     {/* Checkout Button */}
 

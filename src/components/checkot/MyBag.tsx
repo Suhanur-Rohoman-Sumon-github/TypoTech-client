@@ -6,6 +6,7 @@ import {
   useGetSingleUSerCartQuery,
 } from "@/redux/fetures/cards/cardsApi";
 import MyBagSkeleton from "../skeleton/MyBagSkeleton";
+import Swal from "sweetalert2";
 
 type cartData = {
   _id: string;
@@ -41,8 +42,21 @@ const MyBag = () => {
   const total = subtotal + tax + shipping;
 
   const handleCartProductsDelete = async (id: string) => {
-    const deletes = await deleteProducts(id);
-    console.log(deletes);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      deleteProducts(id);
+
+      Swal.fire("Deleted!", "Your product has been deleted.", "success");
+    }
   };
 
   return (

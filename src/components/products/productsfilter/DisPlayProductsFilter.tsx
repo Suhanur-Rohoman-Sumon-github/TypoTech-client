@@ -13,11 +13,14 @@ const DisPlayProductsFilter = () => {
     dispatch(removeFilter({ filter, type }));
   };
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex  gap-2 ">
       {selectedBrands.length > 0 && (
-        <div className="mb-2">
+        <div className="mb-2 ">
           {selectedBrands.map((brand: string) => (
-            <div key={brand} className="flex items-center space-x-2 relative">
+            <div
+              key={brand}
+              className="flex items-center space-x-2 relative mt-3"
+            >
               <Badge>{brand}</Badge>
               <IoMdClose
                 className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
@@ -28,8 +31,8 @@ const DisPlayProductsFilter = () => {
         </div>
       )}
       {priceRange[1] !== 1000 && (
-        <div className="mb-2 relative">
-          <div className="flex items-center space-x-2">
+        <div className="mb-2 ">
+          <div className="flex items-center space-x-2 relative mt-3">
             <Badge>${priceRange[1]}</Badge>
             <IoMdClose
               className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
@@ -39,8 +42,8 @@ const DisPlayProductsFilter = () => {
         </div>
       )}
       {sortOrder && (
-        <div className="mb-2 relative">
-          <div className="flex items-center space-x-2">
+        <div className="mb-2 ">
+          <div className="flex items-center space-x-2 mt-3 relative">
             <Badge>
               {sortOrder === "lowToHigh" ? "Low to High" : "High to Low"}
             </Badge>

@@ -8,6 +8,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { IoMdHome } from "react-icons/io";
 import { MdShoppingCart } from "react-icons/md";
+import { toast } from "sonner";
 type SingleProductsDtailsProps = {
   brand: string;
   title: string;
@@ -79,7 +80,7 @@ const SingleProductsDtails = ({
 
     try {
       await createCards(data).unwrap();
-      alert("Card created successfully");
+      toast.success("product added to the card");
     } catch (err) {
       console.error("Failed to create the card:", err);
     }
