@@ -1,4 +1,3 @@
-import Rating from "react-rating";
 import { Card, CardContent } from "../ui/card";
 import { CiStar } from "react-icons/ci";
 import { IoStar } from "react-icons/io5";
@@ -21,6 +20,24 @@ interface CardMapProps {
 }
 
 const CardMap = ({ data }: CardMapProps) => {
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return (
+      <div className="flex items-center">
+        {[...Array(fullStars)].map((_, index) => (
+          <IoIosStar key={index} className="text-[#ffd700]" />
+        ))}
+        {hasHalfStar && <IoStar className="text-[#ffd700]" />}
+        {[...Array(emptyStars)].map((_, index) => (
+          <CiStar key={index} className="text-[#ffd700]" />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       {data?.slice(0, 8)?.map((item) => (
@@ -42,14 +59,9 @@ const CardMap = ({ data }: CardMapProps) => {
                 <p className="text-[#7C3FFF] font-bold text-xs mt-2">{`Price: ${item.price}`}</p>
                 <p className="text-[#7C3FFF] font-bold text-xs mt-2">{`Brand : ${item.brand}`}</p>
                 <p className="text-[#ffd700] font-bold text-xl mt-2 ">
-                  <Rating
-                    placeholderRating={
-                      item?.ratings?.length > 0 ? item?.ratings[0]?.rating : 0
-                    }
-                    emptySymbol={<CiStar />}
-                    placeholderSymbol={<IoStar />}
-                    fullSymbol={<IoIosStar />}
-                  />
+                  {renderStars(
+                    item?.ratings?.length > 0 ? item?.ratings[0]?.rating : 0
+                  )}
                 </p>
               </div>
             </CardContent>
