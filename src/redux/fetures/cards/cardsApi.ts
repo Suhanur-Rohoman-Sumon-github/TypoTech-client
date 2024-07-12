@@ -13,10 +13,11 @@ const productsApi = baseApi.injectEndpoints({
     }),
     getUserId: builder.query({
         query: () => ({
-            url: `/carts/userId`, 
+            url: `/carts/id`, 
             method: "GET"
         }),
         
+        providesTags:["carts"]
       }),
       getSingleUSerCart: builder.query({
         query: (id) => ({

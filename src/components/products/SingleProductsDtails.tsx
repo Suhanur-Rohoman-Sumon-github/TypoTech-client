@@ -42,6 +42,7 @@ const SingleProductsDtails = ({
   };
   const lstUserId = useGetUserIdQuery(undefined);
   const userIdData = lstUserId?.data?.data?.userId;
+  console.log(userIdData);
 
   const handleAddToCart = async () => {
     let userId = localStorage.getItem("userId");
