@@ -1,10 +1,9 @@
-import React from "react";
 import Rating from "react-rating";
 import { Card, CardContent } from "../ui/card";
 import { CiStar } from "react-icons/ci";
 import { IoStar } from "react-icons/io5";
 import { IoIosStar } from "react-icons/io";
-import { FaArrowCircleRight, FaShoppingCart } from "react-icons/fa";
+import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 interface Product {
@@ -58,17 +57,12 @@ const CardMap = ({ data }: CardMapProps) => {
             <Link to={`/products/${item._id}`}>
               <div className="absolute h-full w-full bg-black opacity-0 hover:opacity-25 cursor-pointer transition-all duration-300 top-0 left-0 z-10 "></div>
             </Link>
-            <div className="absolute top-[95%] left-[45%]">
+            <div className="absolute bottom-4 right-4">
               <Link to={`/products/${item._id}`}>
                 <button className="absolute z-30 transform -translate-x-1/2 -translate-y-1/2 rounded hidden group-hover:block transition-all duration-700 ease-in-out">
                   <FaArrowCircleRight className="text-2xl text-[#7C3FFF]" />
                 </button>
               </Link>
-            </div>
-            <div className="absolute top-[95%] right-[45%]">
-              <button className="absolute top z-30 transform -translate-x-1/2 -translate-y-1/2 rounded hidden group-hover:block transition-all duration-700 ease-in-out">
-                <FaShoppingCart className="text-2xl text-[#7C3FFF]" />
-              </button>
             </div>
           </Card>
         </div>

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import ShopingBag from "@/components/shopingBag/ShopingBag";
 import { useGetSingleUSerCartQuery } from "@/redux/fetures/cards/cardsApi";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +26,7 @@ const Navbar = () => {
   const { data: userCardsData } = useGetSingleUSerCartQuery(userId);
 
   return (
-    <nav className="md:fixed md:z-50 md:top-0 md:w-10/12 md:mx-auto  md:left-[105px] md:mt-6">
+    <nav className="md:fixed md:z-50 md:top-0 md:w-10/12 md:mx-auto  md:left-[105px] md:mt-8">
       <div className="">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -75,7 +76,12 @@ const Navbar = () => {
             <div className="">
               <Sheet>
                 <SheetTrigger>
-                  <FaShoppingCart className="h-8 w-8" />
+                  <div className="relative">
+                    <FaShoppingCart className="h-8 w-8" />
+                    <p className="absolute bottom-5 -right-4 text-xs bg-[#FF3838] px-2 border rounded-full  text-[#FFF]">
+                      {userCardsData?.data?.length}
+                    </p>
+                  </div>
                 </SheetTrigger>
                 <SheetContent className="max-h-screen overflow-y-scroll p-4 max-w-[850px]">
                   <h1 className="text-2xl font-bold p-8 border-b text-center">

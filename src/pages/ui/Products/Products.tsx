@@ -1,6 +1,5 @@
 import CardMap from "@/components/home/CardMap";
 import ProductPageScheleton from "@/components/skeleton/ProductPageScheleton";
-import { Skeleton } from "@/components/ui/skeleton";
 import { keyboardBrands } from "@/data/data";
 import { useGetAllProductsQuery } from "@/redux/fetures/products/productsApi";
 import { useState } from "react";
@@ -11,12 +10,12 @@ const Products = () => {
 
   const categories = ["All", "Category A", "Category B", "Category C"];
   const keyboardBrandNames = ["Brand A", "Brand B", "Brand C"];
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [sortOrder, setSortOrder] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [sortOrder, setSortOrder] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleBrandChange = (brand) => {
+  const handleBrandChange = (brand: string) => {
     setSelectedBrands((prev) =>
       prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
     );
@@ -118,7 +117,7 @@ const Products = () => {
                   min="0"
                   max="1000"
                   value={priceRange[1]}
-                  onChange={(e) => setPriceRange([0, e.target.value])}
+                  onChange={(e) => setPriceRange([0, Number(e.target.value)])}
                   className="text-red-500"
                 />
                 <div className="flex gap-24">

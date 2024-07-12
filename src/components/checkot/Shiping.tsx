@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import OrderSumMary from "./OrderSumMary";
 import ScrollToTop from "../cutom/useScrolltoTop";
+import { setPaymentMethod } from "@/redux/fetures/payments/paymentsSlice";
 
 const Shiping = () => {
-  const [selectedPayment, setSelectedPayment] = useState(null);
+  const dispatch = useAppDispatch();
+  const selectedPayment = useAppSelector(
+    (state) => state.payment.selectedPayment
+  );
 
   const paymentOptions = [
     { id: 2, name: "Stripe", deliveryTime: "3-5 Business Days" },
     { id: 3, name: "Cash on Delivery", deliveryTime: "5-7 Business Days" },
   ];
+
+  const handlePaymentSelection = (name: string) => {
+    dispatch(setPaymentMethod(name));
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -31,7 +39,7 @@ const Shiping = () => {
                     ? "border-[#7C3FFF]"
                     : "border-gray-300"
                 }`}
-                onClick={() => setSelectedPayment(option.name)}
+                onClick={() => handlePaymentSelection(option.name)}
               >
                 <div className="flex items-center">
                   <input
@@ -41,7 +49,7 @@ const Shiping = () => {
                     value={option.name}
                     className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                     checked={selectedPayment === option.name}
-                    onChange={() => setSelectedPayment(option.name)}
+                    onChange={() => handlePaymentSelection(option.name)}
                   />
                   <label
                     htmlFor={option.name}

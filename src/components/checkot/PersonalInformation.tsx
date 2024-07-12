@@ -1,7 +1,5 @@
-import { useGetSingleUSerCartQuery } from "@/redux/fetures/cards/cardsApi";
 import ScrollToTop from "../cutom/useScrolltoTop";
 import OrderSumMary from "./OrderSumMary";
-import MyBagSkeleton from "../skeleton/MyBagSkeleton";
 
 const PersonalInformation = () => {
   return (

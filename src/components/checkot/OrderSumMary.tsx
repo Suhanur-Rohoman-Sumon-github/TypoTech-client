@@ -1,7 +1,17 @@
 import { useGetSingleUSerCartQuery } from "@/redux/fetures/cards/cardsApi";
 import MyBagSkeleton from "../skeleton/MyBagSkeleton";
+import { useAppSelector } from "@/redux/hook";
 
-const OrderSumMary = () => {
+type cartData = {
+  price: number;
+  id: number;
+  quantity: number;
+  title: string;
+  image: string;
+};
+
+const OrderSummary = () => {
+  const { currentPrice, discount } = useAppSelector((state) => state.cupon);
   const userId = localStorage.getItem("userId");
   const { data: userCardsData, isLoading } = useGetSingleUSerCartQuery(userId);
 
@@ -11,7 +21,7 @@ const OrderSumMary = () => {
 
   // Calculate subtotal
   const subtotal = userCardsData.data.reduce(
-    (acc, item) => acc + item.price,
+    (acc: number, item: cartData) => acc + item.price,
     0
   );
 
@@ -21,11 +31,17 @@ const OrderSumMary = () => {
 
   // Calculate total amount
   const total = subtotal + tax + shipping;
+
+  // Calculate the discounted total if a coupon is applied
+  const discountedTotal = currentPrice
+    ? currentPrice - currentPrice * discount
+    : total - total;
+
   return (
     <div className="bg-[#F4F4F4] p-2">
       <h1 className="text-3xl font-bold mb-4 text-center">Order Summary</h1>
       <div className="space-y-4">
-        {userCardsData?.data.map((item) => (
+        {userCardsData?.data.map((item: cartData) => (
           <div
             key={item.id}
             className="flex items-center border rounded-lg p-4"
@@ -44,7 +60,7 @@ const OrderSumMary = () => {
         ))}
       </div>
 
-      <div className="mt-4 space-y-2 ">
+      <div className="mt-4 space-y-2">
         <div className="flex justify-between">
           <span className="font-medium">Subtotal</span>
           <span className="text-[#7C3FFF]">${subtotal?.toFixed(2)}</span>
@@ -60,11 +76,23 @@ const OrderSumMary = () => {
         <hr className="my-2" />
         <div className="flex justify-between">
           <span className="font-semibold">Total</span>
-          <span className="font-bold text-2xl">${total?.toFixed(2)}</span>
+          {currentPrice ? (
+            <div>
+              <span className="line-through text-red-500">
+                ${total?.toFixed(2)}
+              </span>
+              <br />
+              <span className="font-bold text-2xl text-[#000]">
+                ${discountedTotal?.toFixed(2)}
+              </span>
+            </div>
+          ) : (
+            <span className="font-bold text-2xl">${total?.toFixed(2)}</span>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default OrderSumMary;
+export default OrderSummary;

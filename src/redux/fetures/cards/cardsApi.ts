@@ -9,20 +9,31 @@ const productsApi = baseApi.injectEndpoints({
         method: "POST",
         body:cards
       }),
+      invalidatesTags:["carts"]
     }),
     getUserId: builder.query({
         query: () => ({
             url: `/carts/userId`, 
             method: "GET"
         }),
+        
       }),
       getSingleUSerCart: builder.query({
         query: (id) => ({
             url: `/carts/${id}`, 
             method: "GET"
         }),
+        providesTags:["carts"]
       }),
+      deleteProducts: builder.mutation({
+        query: (id) => ({
+            url: `/carts/${id}`, 
+            method: "DELETE"
+        }),
+        invalidatesTags:["carts"]
+      }),
+      
   }),
 });
 
-export const { useCreateNewCardsMutation,useGetUserIdQuery,useGetSingleUSerCartQuery } = productsApi;
+export const { useCreateNewCardsMutation,useGetUserIdQuery,useGetSingleUSerCartQuery,useDeleteProductsMutation } = productsApi;

@@ -1,15 +1,32 @@
-import { useGetSingleUSerCartQuery } from "@/redux/fetures/cards/cardsApi";
+import {
+  useDeleteProductsMutation,
+  useGetSingleUSerCartQuery,
+} from "@/redux/fetures/cards/cardsApi";
 import { MdDelete } from "react-icons/md";
+
+type TShopping = {
+  _id: string;
+  id: string;
+  image: string;
+  title: string;
+  price: number;
+};
+
 const ShoppingBag = () => {
   const userId = localStorage.getItem("userId");
-
+  const [deleteProducts] = useDeleteProductsMutation();
   const { data: userCardsData } = useGetSingleUSerCartQuery(userId);
+
+  const handleCartProductsDelete = async (id: string) => {
+    const deletes = await deleteProducts(id);
+    console.log(deletes);
+  };
 
   return (
     <div className="flex flex-col">
-      {userCardsData?.data.map((cart, index) => (
+      {userCardsData?.data.map((cart: TShopping) => (
         <div
-          key={index}
+          key={cart.id}
           className="shopping-bag-item flex  rounded-lg p-4  mt-4 border"
         >
           <div className="image-container w-1/3">
@@ -28,7 +45,10 @@ const ShoppingBag = () => {
             <div className="actions flex justify-between items-center mt-4 ">
               <div></div>
 
-              <button className=" text-2xl text-red-500 rounded-lg">
+              <button
+                onClick={() => handleCartProductsDelete(cart._id)}
+                className=" text-2xl text-red-500 rounded-lg"
+              >
                 <MdDelete />
               </button>
             </div>

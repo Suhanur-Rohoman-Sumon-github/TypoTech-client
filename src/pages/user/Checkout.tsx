@@ -1,16 +1,17 @@
 import MyBag from "@/components/checkot/MyBag";
-import Payment from "@/components/checkot/Payment";
 import PaymentConfirmPage from "@/components/checkot/PaymentConfirmPage";
 import PersonalInformation from "@/components/checkot/PersonalInformation";
 import Shiping from "@/components/checkot/Shiping";
 import StepIndicator from "@/components/checkot/StepIndecator";
 import ScrollToTop from "@/components/cutom/useScrolltoTop";
+import { useAppSelector } from "@/redux/hook";
 import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const isStripe = useAppSelector((state) => state.payment.isStripe);
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
@@ -74,10 +75,13 @@ const Checkout = () => {
               </Link>
             </div>
           </div>
+        ) : currentStep === 3 && isStripe ? (
+          ""
         ) : (
           <button
             onClick={handleNextStep}
             className="button-primary px-4 py-2 rounded-md"
+            disabled={currentStep === 3 && isStripe}
           >
             Next
           </button>

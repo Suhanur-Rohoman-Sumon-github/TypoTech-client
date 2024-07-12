@@ -1,6 +1,12 @@
 import { IoCheckmarkSharp } from "react-icons/io5";
 
-const StepIndicator = ({ step, title, currentStep }) => (
+type StepIndecator = {
+  step: number;
+  title: string;
+  currentStep: number;
+};
+
+const StepIndicator = ({ step, title, currentStep }: StepIndecator) => (
   <div className="flex items-center">
     <div className="flex flex-col items-center">
       <div
