@@ -3,13 +3,7 @@ import { RootState } from "@/redux/store";
 import { setSelectedBrands } from "@/redux/fetures/products/products.slice";
 
 const FilterBybrands = () => {
-  const keyboardBrandNames = [
-    "KeyTech",
-    "TechFree",
-    "MiniKey",
-    "QuietType",
-    "KeyTech", // Note: "KeyTech" appears twice, you may want unique values
-  ];
+  const keyboardBrandNames = ["KeyTech", "TechFree", "MiniKey", "QuietType"];
   const dispatch = useAppDispatch();
   const { selectedBrands } = useAppSelector(
     (state: RootState) => state.products

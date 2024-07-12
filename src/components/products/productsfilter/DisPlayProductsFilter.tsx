@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { removeFilter } from "@/redux/fetures/products/products.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
@@ -12,15 +13,14 @@ const DisPlayProductsFilter = () => {
     dispatch(removeFilter({ filter, type }));
   };
   return (
-    <div>
+    <div className="flex items-center gap-2">
       {selectedBrands.length > 0 && (
         <div className="mb-2">
-          <h3 className="font-bold">Selected Brands:</h3>
           {selectedBrands.map((brand: string) => (
-            <div key={brand} className="flex items-center space-x-2">
-              <span>{brand}</span>
+            <div key={brand} className="flex items-center space-x-2 relative">
+              <Badge>{brand}</Badge>
               <IoMdClose
-                className="h-4 w-4 cursor-pointer"
+                className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
                 onClick={() => removeFilterHandler(brand, "brand")}
               />
             </div>
@@ -28,28 +28,24 @@ const DisPlayProductsFilter = () => {
         </div>
       )}
       {priceRange[1] !== 1000 && (
-        <div className="mb-2">
-          <h3 className="font-bold">Price Range:</h3>
+        <div className="mb-2 relative">
           <div className="flex items-center space-x-2">
-            <span>
-              ${priceRange[0]} - ${priceRange[1]}
-            </span>
+            <Badge>${priceRange[1]}</Badge>
             <IoMdClose
-              className="h-4 w-4 cursor-pointer"
+              className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
               onClick={() => removeFilterHandler("", "price")}
             />
           </div>
         </div>
       )}
       {sortOrder && (
-        <div className="mb-2">
-          <h3 className="font-bold">Sort Order:</h3>
+        <div className="mb-2 relative">
           <div className="flex items-center space-x-2">
-            <span>
+            <Badge>
               {sortOrder === "lowToHigh" ? "Low to High" : "High to Low"}
-            </span>
+            </Badge>
             <IoMdClose
-              className="h-4 w-4 cursor-pointer"
+              className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
               onClick={() => removeFilterHandler("", "sortOrder")}
             />
           </div>
