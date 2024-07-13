@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,18 +18,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  useGetSingleProductQuery,
-  useUpdateProductMutation,
-} from "@/redux/fetures/products/productsApi";
+import { useAddProductsMutation } from "@/redux/fetures/products/productsApi";
 import { toast } from "sonner";
-import { Link, useLocation } from "react-router-dom";
 
-const EditProducts = () => {
-  const location = useLocation();
-  const { id } = location.state;
-  const { data: singleProducts, isLoading } = useGetSingleProductQuery(id);
-
+const AddProducts = () => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       title: "",
@@ -44,65 +36,13 @@ const EditProducts = () => {
     },
   });
 
-  useEffect(() => {
-    if (singleProducts) {
-      const {
-        title,
-        brand,
-        price,
-        quantity,
-        description,
-        policy,
-        category,
-        image,
-      } = singleProducts.data;
+  const [addproducts] = useAddProductsMutation();
 
-      reset({
-        title,
-        brand,
-        price,
-        quantity,
-        description,
-        policy,
-        category,
-        status: "draft",
-        image,
-      });
-    }
-  }, [singleProducts, reset]);
-
-  const [updateProduct, { isSuccess }] = useUpdateProductMutation();
-
-  if (isSuccess) {
-    return (
-      <div className="flex items-center justify-center">
-        <div>
-          <p className=" font-bold text-4xl">success go back to product pag</p>
-          <Link to={"/dashboard/products"}>
-            {" "}
-            <button className="button-primary mt-4">
-              {" "}
-              Back to products page
-            </button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const onSubmit = async (data: Record<string, unknown>) => {
-    try {
-      await updateProduct({ id, data });
-      toast.success("Product updated successfully");
-    } catch (error) {
-      console.error("Error updating product:", error);
-      toast.error("Failed to update product");
-    }
+  const onSubmit = (data: Record<string, unknown>) => {
+    addproducts(data);
+    toast.success("products added successfully");
+    reset();
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
@@ -125,7 +65,7 @@ const EditProducts = () => {
             <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
               <Card x-chunk="dashboard-07-chunk-0">
                 <CardHeader>
-                  <CardTitle>Update Product Details</CardTitle>
+                  <CardTitle>Product Details</CardTitle>
                   <CardDescription>
                     Lipsum dolor sit amet, consectetur adipiscing elit
                   </CardDescription>
@@ -303,4 +243,4 @@ const EditProducts = () => {
   );
 };
 
-export default EditProducts;
+export default AddProducts;

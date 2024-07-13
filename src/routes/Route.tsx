@@ -1,5 +1,6 @@
 import DashBoardLayout from "@/components/layouts/DashBoardLayout";
 import MainLayOut from "@/components/layouts/MainLayOut";
+import AddProducts from "@/pages/dashbord/admin/AddProducts";
 import AdminHome from "@/pages/dashbord/admin/AdminHome";
 import AnaLytics from "@/pages/dashbord/admin/AnaLytics";
 import EditProducts from "@/pages/dashbord/admin/EditProducts";
@@ -75,6 +76,10 @@ const route = createBrowserRouter([
       {
         path: "orders",
         element: <Order />,
+      },
+      {
+        path: "add-products",
+        element: <AddProducts />,
       },
     ],
   },

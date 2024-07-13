@@ -18,6 +18,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { SiSimpleanalytics } from "react-icons/si";
 import { FaUsers } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+
 export const advertisement = [
   {
     id: 1,
@@ -307,11 +308,6 @@ export const adminNavData = [
     path: "/dashboard/products",
     element: "Products",
   },
-  {
-    icon: <MdProductionQuantityLimits />,
-    path: "/dashboard/edit-products",
-    element: "Edit products",
-  },
 
   {
     icon: <FaUsers />,
@@ -322,5 +318,10 @@ export const adminNavData = [
     icon: <SiSimpleanalytics />,
     path: "/dashboard/analytics",
     element: "Analytics",
+  },
+  {
+    icon: <MdProductionQuantityLimits />,
+    path: "/dashboard/add-products",
+    element: "Add products",
   },
 ];

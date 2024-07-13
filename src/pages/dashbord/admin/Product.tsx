@@ -30,6 +30,7 @@ import {
   useGetAllProductsQuery,
 } from "@/redux/fetures/products/productsApi";
 import AdminProductsSkeleton from "@/components/skeleton/AdminProductsSkeliton";
+import { useNavigate } from "react-router-dom";
 
 type products = {
   title: string;
@@ -44,11 +45,17 @@ const Product = () => {
     limit: 10,
   });
 
+  const navigate = useNavigate();
+
   const [deleteProducts] = useDeleteProductMutation();
 
   if (isLoading) {
     return <AdminProductsSkeleton />;
   }
+
+  const handleUpdate = (id: string) => {
+    navigate("/dashboard/edit-products", { state: { id } });
+  };
 
   return (
     <div>
@@ -116,7 +123,11 @@ const Product = () => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => handleUpdate(product._id)}
+                              >
+                                Edit
+                              </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() => deleteProducts(product._id)}
                               >

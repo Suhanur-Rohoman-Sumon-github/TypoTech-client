@@ -1,6 +1,7 @@
 
 import { baseApi } from "../../api/baseapi";
 
+
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
@@ -46,6 +47,14 @@ const productsApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["products"],
     }),
+    updateProduct: builder.mutation({
+      query: ({ id, data }: { id: string; data: Record<string, unknown> }) => ({
+        url: `/products/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["products"],
+    }),
   }),
 });
 
@@ -53,5 +62,6 @@ export const {
   useGetAllProductsQuery,
   useGetSingleProductQuery,
   useDeleteProductMutation,
-  useAddProductsMutation
+  useAddProductsMutation,
+  useUpdateProductMutation
 } = productsApi;
