@@ -34,6 +34,14 @@ npm install
 npm start
 ```
 The application will be running at http://localhost:5173/
+
+### Features
+
+-- Product Catalog: Browse and filter products based on categories and attributes.
+-- Shopping Cart: Add products to the cart, view cart contents, and proceed to checkout.
+-- Checkout Process: Enter shipping information, select payment methods ( Stripe, Cash on Delivery), and review orders.
+-- Responsive Design: Ensures a consistent user experience across devices.
+
 ### Technologies Used
 - Frontend: React js, Redux, TypeScript, tailwind, shad cn,
 - Backend: express js, typescript, mongo db, mongoose
