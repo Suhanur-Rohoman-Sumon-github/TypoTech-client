@@ -2,6 +2,7 @@ import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { IoRocket } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#dddced] text-[#000000] ">
@@ -22,91 +23,34 @@ const Footer = () => {
               <Label htmlFor="email">Email</Label>
               <Input type="email" id="email" placeholder="Email" />
             </div>
-            <button className="button-icon ">
+            <button className="button-icon  mt-6">
               <IoRocket />
             </button>
           </div>
         </div>
 
-        {/* Second section: Title, company, and nav links */}
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-2">Company</h2>
           <nav className="space-y-2">
-            <a href="#about" className="text-[#7C3FFF] block">
-              About Us
-            </a>
-            <a href="#services" className="text-[#7C3FFF] block">
-              Services
-            </a>
-            <a href="#contact" className="text-[#7C3FFF] block">
-              Contact
-            </a>
-            <a href="#careers" className="text-[#7C3FFF] block">
-              Careers
-            </a>
-            <a href="#faq" className="text-[#7C3FFF] block">
-              FAQ
-            </a>
+            <Link to="/products" className="text-[#7C3FFF] block">
+              Products
+            </Link>
           </nav>
         </div>
         <div className="mb-6">
-          <h2 className="text-xl font-bold mb-2">Shop</h2>
+          <h2 className="text-xl font-bold mb-2">About</h2>
           <nav className="space-y-2">
-            <a href="#about" className="text-[#7C3FFF] block">
-              Gift Cards
-            </a>
-            <a href="#services" className="text-[#7C3FFF] block">
-              Our Products
-            </a>
-            <a href="#contact" className="text-[#7C3FFF] block">
-              My Account{" "}
-            </a>
-            <a href="#careers" className="text-[#7C3FFF] block">
-              Shipping
-            </a>
-            <a href="#faq" className="text-[#7C3FFF] block">
-              Returns
-            </a>
+            <Link to="/about" className="text-[#7C3FFF] block">
+              About
+            </Link>
           </nav>
         </div>
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-2">Support</h2>
           <nav className="space-y-2">
-            <a href="#about" className="text-[#7C3FFF] block">
+            <Link to="/contact" className="text-[#7C3FFF] block">
               Contact Us{" "}
-            </a>
-            <a href="#services" className="text-[#7C3FFF] block">
-              Payment Options
-            </a>
-            <a href="#contact" className="text-[#7C3FFF] block">
-              Store Locator
-            </a>
-            <a href="#careers" className="text-[#7C3FFF] block">
-              Accessibility
-            </a>
-            <a href="#faq" className="text-[#7C3FFF] block">
-              Affiliates
-            </a>
-          </nav>
-        </div>
-        <div className="mb-6">
-          <h2 className="text-xl font-bold mb-2">FAQ</h2>
-          <nav className="space-y-2">
-            <a href="#about" className="text-[#7C3FFF] block">
-              Rewards FAQ{" "}
-            </a>
-            <a href="#services" className="text-[#7C3FFF] block">
-              Product Care
-            </a>
-            <a href="#contact" className="text-[#7C3FFF] block">
-              Size Guide
-            </a>
-            <a href="#careers" className="text-[#7C3FFF] block">
-              Careers
-            </a>
-            <a href="#faq" className="text-[#7C3FFF] block">
-              FAQ
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

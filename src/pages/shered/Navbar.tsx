@@ -2,7 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-removebg-preview.png";
 import { FaShoppingCart } from "react-icons/fa";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import emtyShoping from "../../assets/emty shoping.jfif";
 import {
   Sheet,
@@ -132,13 +131,6 @@ const Navbar = () => {
                 </SheetContent>
               </Sheet>
             </div>
-            <Avatar>
-              <AvatarImage
-                className="h-8 w-8 rounded-full"
-                src="https://github.com/shadcn.png"
-              />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
           </div>
           <div className="md:hidden flex items-center">
             <button

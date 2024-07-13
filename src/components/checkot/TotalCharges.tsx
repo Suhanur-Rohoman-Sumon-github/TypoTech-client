@@ -50,7 +50,6 @@ const TotalCharges = ({
   const handleApplyCoupon = () => {
     dispatch(applyCoupon(total));
 
-    // Dispatch updatePriceInfo action with updated priceInfo
     const updatedPriceInfo = {
       subtotal,
       shipping,
@@ -62,7 +61,10 @@ const TotalCharges = ({
 
   return (
     <div className="p-4 rounded-lg bg-[#F4F4F4] h-full">
-      <h2 className="text-xl font-semibold mb-4">Gift card or discount code</h2>
+      <h2 className="text-xl font-bold mb-4">Gift card or discount code</h2>
+      <p className="text-xs text-[#7C3FFF] mb-4">
+        Apply DISCOUNT10 coupon to get 10% discount limited time offer
+      </p>
       <div className="flex items-center">
         <div className="grid w-full items-center mb-4">
           <Input

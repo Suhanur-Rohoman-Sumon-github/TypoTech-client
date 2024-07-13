@@ -1,35 +1,57 @@
+
 import { baseApi } from "../../api/baseapi";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: ({ search, sort, fields,limits }) => {
+      query: ({ search, sort, fields, limits }) => {
         const params: Record<string, unknown> = {};
-        if (search) params.searchTerm  = search;
-        // if (filter) params.filter = JSON.stringify(filter);
+        if (search) params.searchTerm = search;
         if (sort) params.sort = sort;
         if (fields) params.fields = fields;
         if (limits) params.limit = limits;
-        
+
         return {
           url: "/products",
           method: "GET",
           params,
         };
       },
+      providesTags: ["products"],
     }),
     getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+    }),
+    deleteProduct: builder.mutation({
       query: (id) => {
         
-
         return {
           url: `/products/${id}`,
-          method: "GET",
-          
+          method: "DELETE",
         };
       },
+      invalidatesTags: ["products"],
+    }),
+    addProducts: builder.mutation({
+      query: (data) => {
+        
+        return {
+          url: `/products`,
+          method: "POST",
+          body:data
+        };
+      },
+      invalidatesTags: ["products"],
     }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetSingleProductQuery } = productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+  useDeleteProductMutation,
+  useAddProductsMutation
+} = productsApi;

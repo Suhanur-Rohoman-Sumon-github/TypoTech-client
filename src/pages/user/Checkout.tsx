@@ -6,7 +6,7 @@ import StepIndicator from "@/components/checkot/StepIndecator";
 import ScrollToTop from "@/components/cutom/useScrolltoTop";
 import { useCreateOrderMutation } from "@/redux/fetures/order/orderApi";
 import { useAppSelector } from "@/redux/hook";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
@@ -18,16 +18,29 @@ const Checkout = () => {
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
+
   const [createOrder] = useCreateOrderMutation();
   const handleConfirmOrder = async () => {
     createOrder(orderInfo);
-
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
   const handlePreviousStep = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <div className="container mx-auto my-32">
@@ -68,9 +81,7 @@ const Checkout = () => {
           >
             Continue
           </button>
-        ) : (
-          ""
-        )}
+        ) : null}
         {currentStep === 2 && isSubmitted ? (
           <button
             onClick={handleNextStep}
@@ -78,9 +89,7 @@ const Checkout = () => {
           >
             Continue
           </button>
-        ) : (
-          ""
-        )}{" "}
+        ) : null}
         {currentStep === 3 && !isStripe ? (
           <button
             onClick={handleConfirmOrder}
@@ -88,11 +97,9 @@ const Checkout = () => {
           >
             Confirm Order
           </button>
-        ) : (
-          ""
-        )}
+        ) : null}
         {currentStep === 4 ? (
-          <div className="flex justify-between item-center s">
+          <div className="flex justify-between items-center">
             <div>
               <Link to={"/products"}>
                 <button
