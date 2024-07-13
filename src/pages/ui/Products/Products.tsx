@@ -89,7 +89,7 @@ const Products = () => {
 
           {/* Product list */}
           <div className="col-span-3">
-            <div className="flex justify-between items-center p-4 sticky top-0 bg-white z-10">
+            <div className="md:flex justify-between items-center p-4 sticky top-0 bg-white z-10 ">
               <ProductsSearching />
             </div>
             <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-4">

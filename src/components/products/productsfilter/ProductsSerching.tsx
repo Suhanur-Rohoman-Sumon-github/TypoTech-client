@@ -15,13 +15,13 @@ const ProductsSearching = () => {
   );
 
   return (
-    <div className="flex gap-8 justify-between items-center  sticky top-0 bg-white z-10">
+    <div className="md:flex gap-8 justify-between items-center  sticky top-0 bg-white z-10">
       <input
         type="text"
         placeholder="Search products..."
         value={searchQuery}
         onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-        className="border px-4 py-2 rounded"
+        className="border px-4 py-2 rounded mt-4 md:mt-0"
       />
       <select
         value={sortOrder}
