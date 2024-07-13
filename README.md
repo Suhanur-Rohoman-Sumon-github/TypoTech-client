@@ -35,11 +35,11 @@ npm start
 ```
 The application will be running at http://localhost:5173/
 ### Technologies Used
--Frontend: React js, Redux, TypeScript, tailwind, shad cn,
--Backend: express js, typescript, mongo db, mongoose
+- Frontend: React js, Redux, TypeScript, tailwind, shad cn,
+- Backend: express js, typescript, mongo db, mongoose
 
 ### FQA
--1)Why the admin dashboard in the navbar
-ans: Because this project is not completed yet,Next update will come soon 
+####1)Why the admin dashboard in the navbar
+ans: Because this project is not completed yet, Next update will come soon 
 
 
