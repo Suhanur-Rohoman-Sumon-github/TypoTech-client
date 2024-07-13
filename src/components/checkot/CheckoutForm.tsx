@@ -4,15 +4,16 @@ import { useAppDispatch } from "@/redux/hook";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
+
 type CheckoutFormProps = {
   price: number;
 };
+
 const CheckoutForm = ({ price }: CheckoutFormProps) => {
   const [clientSecret, setClientSecret] = useState("");
   const [isPaymentIntent, setIsPaymentIntent] = useState(false);
 
   const dispatch = useAppDispatch();
-
   const stripe = useStripe();
   const elements = useElements();
 
@@ -22,7 +23,6 @@ const CheckoutForm = ({ price }: CheckoutFormProps) => {
     if (!isPaymentIntent) {
       createPaymentIntent({ price })
         .unwrap()
-
         .then((res) => {
           setClientSecret(res.data.clientSecret);
           setIsPaymentIntent(true);
@@ -30,25 +30,26 @@ const CheckoutForm = ({ price }: CheckoutFormProps) => {
     }
   }, [price, isPaymentIntent, createPaymentIntent]);
 
-  const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
       return;
     }
+
     const card = elements.getElement(CardElement);
 
-    if (card == null) {
+    if (!card) {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
 
     if (error) {
-      console.log("[error]", error);
+      console.error("[error]", error);
       return;
     }
 
@@ -61,20 +62,9 @@ const CheckoutForm = ({ price }: CheckoutFormProps) => {
       },
     });
 
-    const transitionId = paymentMethod.id;
-    const date = new Date().toISOString();
-    const amount = price;
-
-    if (paymentIntent!.status === "succeeded") {
-      toast.success("your payments added successfully");
+    if (paymentIntent?.status === "succeeded") {
+      toast.success("Your payment was successful!");
       dispatch(setPaymentMethod("confirm"));
-      const payments = {
-        paymentsId: transitionId,
-        userName: "mr:sumon",
-        transitionId,
-        date,
-        amount,
-      };
     }
   };
 
