@@ -7,6 +7,13 @@ import {
 } from "@/redux/fetures/cards/cardsApi";
 import MyBagSkeleton from "../skeleton/MyBagSkeleton";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+
+import { useAppDispatch } from "@/redux/hook";
+import {
+  updatePriceInfo,
+  updateProducts,
+} from "@/redux/fetures/order/orderSlice";
 
 type cartData = {
   _id: string;
@@ -19,27 +26,38 @@ type cartData = {
 
 const MyBag = () => {
   const userId = localStorage.getItem("userId");
-
+  const dispatch = useAppDispatch();
   const [deleteProducts] = useDeleteProductsMutation();
 
   const { data: userCardsData, isLoading } = useGetSingleUSerCartQuery(userId);
 
-  if (isLoading) {
-    return <MyBagSkeleton />;
-  }
-
-  // Calculate subtotal
-  const subtotal = userCardsData.data.reduce(
+  const subtotal = userCardsData?.data?.reduce(
     (acc: number, item: cartData) => acc + item.price,
     0
   );
+  useEffect(() => {
+    userCardsData?.data?.reduce(
+      (_acc: number, item: cartData) => dispatch(updateProducts([item._id])),
+      0
+    );
+  }, [dispatch, userCardsData?.data]);
 
-  // Placeholder values for tax and shipping
   const tax = 2.5;
   const shipping = 5.0;
 
-  // Calculate total amount
   const total = subtotal + tax + shipping;
+
+  useEffect(() => {
+    const priceInfo = {
+      subtotal,
+      shipping,
+      tax,
+      total,
+    };
+
+    dispatch(updatePriceInfo(priceInfo));
+    dispatch(updateProducts([]));
+  }, [subtotal, shipping, tax, total, dispatch]);
 
   const handleCartProductsDelete = async (id: string) => {
     const result = await Swal.fire({
@@ -58,6 +76,10 @@ const MyBag = () => {
       Swal.fire("Deleted!", "Your product has been deleted.", "success");
     }
   };
+
+  if (isLoading) {
+    return <MyBagSkeleton />;
+  }
 
   return (
     <div className="container mx-auto py-8">

@@ -6,50 +6,80 @@ import { IoMdClose } from "react-icons/io";
 
 const DisPlayProductsFilter = () => {
   const dispatch = useAppDispatch();
-  const { selectedBrands, sortOrder, priceRange } = useAppSelector(
-    (state: RootState) => state.products
-  );
-  const removeFilterHandler = (filter: string, type: string) => {
-    dispatch(removeFilter({ filter, type }));
+  const { selectedBrand, sortOrder, priceRange, category, searchQuery } =
+    useAppSelector((state: RootState) => state.products);
+
+  const removeFilterHandler = (type: string) => {
+    if (type === "brand") {
+      dispatch(removeFilter({ type }));
+    } else if (type === "price") {
+      dispatch(removeFilter({ type }));
+    } else if (type === "sortOrder") {
+      dispatch(removeFilter({ type }));
+    } else if (type === "category") {
+      dispatch(removeFilter({ type }));
+    } else if (type === "searchQuery") {
+      dispatch(removeFilter({ type }));
+    }
   };
+
   return (
-    <div className="flex  gap-2 ">
-      {selectedBrands.length > 0 && (
-        <div className="mb-2 ">
-          {selectedBrands.map((brand: string) => (
-            <div
-              key={brand}
-              className="flex items-center space-x-2 relative mt-3"
-            >
-              <Badge>{brand}</Badge>
-              <IoMdClose
-                className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
-                onClick={() => removeFilterHandler(brand, "brand")}
-              />
-            </div>
-          ))}
+    <div className="flex gap-2">
+      {selectedBrand && (
+        <div className="mb-2">
+          <div className="flex items-center space-x-2 relative mt-3">
+            <Badge>{selectedBrand}</Badge>
+            <IoMdClose
+              className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+              onClick={() => removeFilterHandler("brand")}
+            />
+          </div>
         </div>
       )}
       {priceRange[1] !== 1000 && (
-        <div className="mb-2 ">
+        <div className="mb-2">
           <div className="flex items-center space-x-2 relative mt-3">
-            <Badge>${priceRange[1]}</Badge>
+            <Badge>
+              ${priceRange[0]} - ${priceRange[1]}
+            </Badge>
             <IoMdClose
               className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
-              onClick={() => removeFilterHandler("", "price")}
+              onClick={() => removeFilterHandler("price")}
             />
           </div>
         </div>
       )}
       {sortOrder && (
-        <div className="mb-2 ">
+        <div className="mb-2">
           <div className="flex items-center space-x-2 mt-3 relative">
             <Badge>
-              {sortOrder === "lowToHigh" ? "Low to High" : "High to Low"}
+              {sortOrder === "price" ? "Low to High" : "High to Low"}
             </Badge>
             <IoMdClose
               className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
-              onClick={() => removeFilterHandler("", "sortOrder")}
+              onClick={() => removeFilterHandler("sortOrder")}
+            />
+          </div>
+        </div>
+      )}
+      {category && (
+        <div className="mb-2">
+          <div className="flex items-center space-x-2 mt-3 relative">
+            <Badge>{category}</Badge>
+            <IoMdClose
+              className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+              onClick={() => removeFilterHandler("category")}
+            />
+          </div>
+        </div>
+      )}
+      {searchQuery && (
+        <div className="mb-2">
+          <div className="flex items-center space-x-2 mt-3 relative">
+            <Badge>{searchQuery}</Badge>
+            <IoMdClose
+              className="h-4 w-4 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+              onClick={() => removeFilterHandler("searchQuery")}
             />
           </div>
         </div>

@@ -4,6 +4,7 @@ import cardSlice from './fetures/cards/cardSlice'
 import cupons from './fetures/cupons/cupons'
 import paymentsSlice from './fetures/payments/paymentsSlice'
 import productsSlice from './fetures/products/products.slice'
+import orderSlice from './fetures/order/orderSlice'
 // ...
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     cupon:cupons ,
     products:productsSlice,
     payment:paymentsSlice ,
+    orders:orderSlice ,
     [baseApi.reducerPath]: baseApi.reducer,
     
   },

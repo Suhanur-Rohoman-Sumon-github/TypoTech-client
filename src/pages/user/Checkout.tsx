@@ -4,16 +4,24 @@ import PersonalInformation from "@/components/checkot/PersonalInformation";
 import Shiping from "@/components/checkot/Shiping";
 import StepIndicator from "@/components/checkot/StepIndecator";
 import ScrollToTop from "@/components/cutom/useScrolltoTop";
+import { useCreateOrderMutation } from "@/redux/fetures/order/orderApi";
 import { useAppSelector } from "@/redux/hook";
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
   const isStripe = useAppSelector((state) => state.payment.isStripe);
+  const { orderInfo, isSubmitted } = useAppSelector((state) => state.orders);
 
   const handleNextStep = () => {
+    setCurrentStep((prevStep) => prevStep + 1);
+  };
+  const [createOrder] = useCreateOrderMutation();
+  const handleConfirmOrder = async () => {
+    createOrder(orderInfo);
+
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
@@ -45,22 +53,43 @@ const Checkout = () => {
       </div>
 
       <div className="flex justify-between mt-4">
-        {currentStep === 4 ? (
-          <Link to={"/"}>
-            <button
-              onClick={handlePreviousStep}
-              className="px-4 py-2 bg-gray-300 rounded-md text-[#7C3FFF]"
-            >
-              Go to Home Page
-            </button>
-          </Link>
-        ) : (
+        {currentStep > 1 && (
           <button
             onClick={handlePreviousStep}
             className="px-4 py-2 bg-gray-300 rounded-md text-[#7C3FFF]"
           >
             Previous
           </button>
+        )}
+        {currentStep === 1 ? (
+          <button
+            onClick={handleNextStep}
+            className="button-primary px-4 py-2 rounded-md"
+          >
+            Continue
+          </button>
+        ) : (
+          ""
+        )}
+        {currentStep === 2 && isSubmitted ? (
+          <button
+            onClick={handleNextStep}
+            className="button-primary px-4 py-2 rounded-md"
+          >
+            Continue
+          </button>
+        ) : (
+          ""
+        )}{" "}
+        {currentStep === 3 && !isStripe ? (
+          <button
+            onClick={handleConfirmOrder}
+            className="button-primary px-4 py-2 rounded-md"
+          >
+            Confirm Order
+          </button>
+        ) : (
+          ""
         )}
         {currentStep === 4 ? (
           <div className="flex justify-between item-center s">
@@ -75,17 +104,7 @@ const Checkout = () => {
               </Link>
             </div>
           </div>
-        ) : currentStep === 3 && isStripe ? (
-          ""
-        ) : (
-          <button
-            onClick={handleNextStep}
-            className="button-primary px-4 py-2 rounded-md"
-            disabled={currentStep === 3 && isStripe}
-          >
-            Next
-          </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

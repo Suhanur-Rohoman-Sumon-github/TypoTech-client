@@ -12,7 +12,12 @@ import p5 from "../assets/pakaging.png";
 import p6 from "../assets/payments.png";
 import p7 from "../assets/special offar.png";
 import p8 from "../assets/support.png";
-
+import { FaHome } from "react-icons/fa";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { AiOutlineProduct } from "react-icons/ai";
+import { SiSimpleanalytics } from "react-icons/si";
+import { FaUsers } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 export const advertisement = [
   {
     id: 1,
@@ -283,5 +288,39 @@ export const testimonialInfo = [
       "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,",
     name: "Aditi Singh",
     position: "CEO, Business Co",
+  },
+];
+
+export const adminNavData = [
+  {
+    icon: <FaHome />,
+    path: "/dashboard/home",
+    element: "Home",
+  },
+  {
+    icon: <FaCartShopping />,
+    path: "/dashboard/orders",
+    element: "Orders",
+  },
+  {
+    icon: <AiOutlineProduct />,
+    path: "/dashboard/products",
+    element: "Products",
+  },
+  {
+    icon: <MdProductionQuantityLimits />,
+    path: "/dashboard/edit-products",
+    element: "Edit products",
+  },
+
+  {
+    icon: <FaUsers />,
+    path: "/dashboard/user",
+    element: "Manage user",
+  },
+  {
+    icon: <SiSimpleanalytics />,
+    path: "/dashboard/analytics",
+    element: "Analytics",
   },
 ];

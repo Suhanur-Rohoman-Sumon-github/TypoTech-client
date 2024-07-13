@@ -1,28 +1,29 @@
-// src/redux/features/products/productsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ProductsState {
-  selectedBrands: string[];
+  selectedBrand: string 
   priceRange: [number, number];
   sortOrder: string;
   currentPage: number;
   searchQuery: string;
+  category: string 
 }
 
 const initialState: ProductsState = {
-  selectedBrands: [],
+  selectedBrand: '',
   priceRange: [0, 1000],
   sortOrder: '',
   currentPage: 1,
   searchQuery: '',
+  category: '',
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setSelectedBrands(state, action: PayloadAction<string[]>) {
-      state.selectedBrands = action.payload;
+    setSelectedBrand(state, action: PayloadAction<string>) {
+      state.selectedBrand = action.payload;
     },
     setPriceRange(state, action: PayloadAction<[number, number]>) {
       state.priceRange = action.payload;
@@ -36,30 +37,38 @@ const productsSlice = createSlice({
     setSearchQuery(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload;
     },
+    setCategory(state, action: PayloadAction<string>) {
+      state.category = action.payload;
+    },
     clearFilters(state) {
-      state.selectedBrands = [];
+      state.selectedBrand = '';
       state.priceRange = [0, 1000];
       state.sortOrder = '';
+      state.category = '';
     },
-    removeFilter(state, action: PayloadAction<{ filter: string; type: string }>) {
-      const { filter, type } = action.payload;
+    removeFilter(state, action: PayloadAction<{ type: string }>) {
+      const { type } = action.payload;
       if (type === 'brand') {
-        state.selectedBrands = state.selectedBrands.filter((b) => b !== filter);
+        state.selectedBrand = '';
       } else if (type === 'price') {
         state.priceRange = [0, 1000];
       } else if (type === 'sortOrder') {
         state.sortOrder = '';
-      }
+      } else if (type === 'category') {
+        state.category = '';
+      }else if (type === 'searchQuery') {
+        state.searchQuery = ''; }
     },
   },
 });
 
 export const {
-  setSelectedBrands,
+  setSelectedBrand,
   setPriceRange,
   setSortOrder,
   setCurrentPage,
   setSearchQuery,
+  setCategory,
   clearFilters,
   removeFilter,
 } = productsSlice.actions;

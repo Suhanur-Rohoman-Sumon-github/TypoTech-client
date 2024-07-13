@@ -1,4 +1,11 @@
+import DashBoardLayout from "@/components/layouts/DashBoardLayout";
 import MainLayOut from "@/components/layouts/MainLayOut";
+import AdminHome from "@/pages/dashbord/admin/AdminHome";
+import AnaLytics from "@/pages/dashbord/admin/AnaLytics";
+import EditProducts from "@/pages/dashbord/admin/EditProducts";
+import ManageUser from "@/pages/dashbord/admin/ManageUser";
+import Order from "@/pages/dashbord/admin/Order";
+import Product from "@/pages/dashbord/admin/Product";
 import AboutUs from "@/pages/ui/AboutUs/AboutUs";
 import ContactUs from "@/pages/ui/contact/Contact";
 import Home from "@/pages/ui/home/Home";
@@ -34,6 +41,40 @@ const route = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoardLayout />,
+    children: [
+      {
+        path: "home",
+        element: <AdminHome />,
+      },
+      {
+        path: "order",
+        element: <Order />,
+      },
+      {
+        path: "products",
+        element: <Product />,
+      },
+      {
+        path: "edit-products",
+        element: <EditProducts />,
+      },
+      {
+        path: "analytics",
+        element: <AnaLytics />,
+      },
+      {
+        path: "user",
+        element: <ManageUser />,
+      },
+      {
+        path: "orders",
+        element: <Order />,
       },
     ],
   },

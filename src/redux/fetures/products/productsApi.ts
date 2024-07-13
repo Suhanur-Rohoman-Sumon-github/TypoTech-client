@@ -3,14 +3,14 @@ import { baseApi } from "../../api/baseapi";
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: ({ search, filter, sort, fields,limits }) => {
-        const params: Record<string, string> = {};
+      query: ({ search, sort, fields,limits }) => {
+        const params: Record<string, unknown> = {};
         if (search) params.searchTerm  = search;
-        if (filter) params.filter = filter;
+        // if (filter) params.filter = JSON.stringify(filter);
         if (sort) params.sort = sort;
         if (fields) params.fields = fields;
         if (limits) params.limit = limits;
-
+        
         return {
           url: "/products",
           method: "GET",

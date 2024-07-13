@@ -10,19 +10,16 @@ import { setCurrentPage } from "@/redux/fetures/products/products.slice";
 import ProductsSearching from "@/components/products/productsfilter/ProductsSerching";
 import DisPlayProductsFilter from "@/components/products/productsfilter/DisPlayProductsFilter";
 import FilterBybrands from "@/components/products/productsfilter/FilterBybrands";
-import FilterByProductsPrice from "@/components/products/productsfilter/FilterByProductsPrice";
 import ClearProducts from "@/components/products/productsfilter/ClearProducts";
+import FilterByCategory from "@/components/products/productsfilter/FilterByProductsCategory";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { sortOrder, currentPage, searchQuery } = useSelector(
-    (state: RootState) => state.products
-  );
-
-  const categories = ["All", "Category A", "Category B", "Category C"];
+  const { sortOrder, currentPage, searchQuery, selectedBrand, category } =
+    useSelector((state: RootState) => state.products);
 
   const { data: products, isLoading } = useGetAllProductsQuery({
-    search: searchQuery,
+    search: searchQuery || selectedBrand || category,
     sort: sortOrder,
     page: currentPage,
     limit: 10,
@@ -83,19 +80,11 @@ const Products = () => {
               </div>
             </div>
             {/* category */}
-            <ul className="space-y-2 border p-4">
-              {categories.map((category, index) => (
-                <li key={index} className="cursor-pointer">
-                  {category}
-                </li>
-              ))}
-            </ul>
+            <h2 className="text-xs font-bold mt-6 mb-4">Filter by category</h2>
+            <FilterByCategory />
 
             <h2 className="text-xs font-bold mt-6 mb-4">Filter by Brand</h2>
             <FilterBybrands />
-
-            <h2 className="text-xl font-bold mt-6 mb-4">Filter by Price</h2>
-            <FilterByProductsPrice />
           </div>
 
           {/* Product list */}

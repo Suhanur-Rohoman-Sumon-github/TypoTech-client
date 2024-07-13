@@ -29,8 +29,7 @@ const ProductsSearching = () => {
         className="border px-4 py-2 rounded"
       >
         <option value="">Sort by Price</option>
-        <option value="lowToHigh">Low to High</option>
-        <option value="highToLow">High to Low</option>
+        <option value="price">Low to High</option>
       </select>
     </div>
   );

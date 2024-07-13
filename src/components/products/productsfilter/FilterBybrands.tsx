@@ -1,20 +1,21 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
-import { setSelectedBrands } from "@/redux/fetures/products/products.slice";
+import {
+  removeFilter,
+  setSelectedBrand,
+} from "@/redux/fetures/products/products.slice";
 
-const FilterBybrands = () => {
+const FilterByBrands = () => {
   const keyboardBrandNames = ["KeyTech", "TechFree", "MiniKey", "QuietType"];
   const dispatch = useAppDispatch();
-  const { selectedBrands } = useAppSelector(
+  const { selectedBrand } = useAppSelector(
     (state: RootState) => state.products
   );
 
   const handleBrandChange = (brand: string) => {
-    const newSelectedBrands = selectedBrands.includes(brand)
-      ? selectedBrands.filter((b) => b !== brand)
-      : [...selectedBrands, brand];
-
-    dispatch(setSelectedBrands(newSelectedBrands));
+    const newSelectedBrand = selectedBrand === brand ? "" : brand;
+    dispatch(setSelectedBrand(newSelectedBrand));
+    dispatch(removeFilter({ type: "category" }));
   };
 
   return (
@@ -25,7 +26,7 @@ const FilterBybrands = () => {
             <input
               type="checkbox"
               className="mr-2"
-              checked={selectedBrands.includes(brand)}
+              checked={selectedBrand === brand}
               onChange={() => handleBrandChange(brand)}
             />
             {brand}
@@ -36,4 +37,4 @@ const FilterBybrands = () => {
   );
 };
 
-export default FilterBybrands;
+export default FilterByBrands;

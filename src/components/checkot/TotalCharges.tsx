@@ -1,6 +1,9 @@
+import { updatePriceInfo } from "@/redux/fetures/order/orderSlice";
 import { Input } from "../ui/input";
 import { applyCoupon, setCoupon } from "@/redux/fetures/cupons/cupons";
+import { setProductPrice } from "@/redux/fetures/payments/paymentsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useEffect } from "react";
 
 type TotalChargesProps = {
   total: number;
@@ -18,13 +21,46 @@ const TotalCharges = ({
   const dispatch = useAppDispatch();
   const { coupon, errorMessage, isCouponValid, currentPrice, discount } =
     useAppSelector((state) => state.cupon);
-
-  const handleApplyCoupon = () => {
-    dispatch(applyCoupon(total));
-  };
+  const { orderInfo } = useAppSelector((state) => state.orders);
+  console.log(orderInfo.priceInfo);
 
   // Calculate the total price after applying the discount
   const discountedTotal = currentPrice - currentPrice * discount;
+
+  useEffect(() => {
+    const finalPrice = isCouponValid ? discountedTotal : total;
+    dispatch(setProductPrice(finalPrice));
+
+    // Update priceInfo in the order slice
+    const updatedPriceInfo = {
+      subtotal,
+      shipping,
+      tax,
+      total: finalPrice,
+    };
+    dispatch(updatePriceInfo(updatedPriceInfo));
+  }, [
+    dispatch,
+    total,
+    discountedTotal,
+    isCouponValid,
+    subtotal,
+    shipping,
+    tax,
+  ]);
+
+  const handleApplyCoupon = () => {
+    dispatch(applyCoupon(total));
+
+    // Dispatch updatePriceInfo action with updated priceInfo
+    const updatedPriceInfo = {
+      subtotal,
+      shipping,
+      tax,
+      total: isCouponValid ? discountedTotal : total,
+    };
+    dispatch(updatePriceInfo(updatedPriceInfo));
+  };
 
   return (
     <div className="p-4 rounded-lg bg-[#F4F4F4] h-full">

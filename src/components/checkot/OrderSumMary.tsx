@@ -19,20 +19,16 @@ const OrderSummary = () => {
     return <MyBagSkeleton />;
   }
 
-  // Calculate subtotal
   const subtotal = userCardsData.data.reduce(
     (acc: number, item: cartData) => acc + item.price,
     0
   );
 
-  // Placeholder values for tax and shipping
   const tax = 2.5;
   const shipping = 5.0;
 
-  // Calculate total amount
   const total = subtotal + tax + shipping;
 
-  // Calculate the discounted total if a coupon is applied
   const discountedTotal = currentPrice
     ? currentPrice - currentPrice * discount
     : total - total;

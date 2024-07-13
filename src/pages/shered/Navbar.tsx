@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import logo from "../../assets/Black___Blue_Minimalist_Modern_Initial_Font_Logo-removebg-preview.png";
-import { IoSearchSharp } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import emtyShoping from "../../assets/emty shoping.jfif";
@@ -68,11 +67,16 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
+            <NavLink
+              to="/dashboard/products"
+              className={({ isActive }) =>
+                isActive ? "text-[#7C3FFF]" : "nothing"
+              }
+            >
+              Dashboard
+            </NavLink>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <div className="h-8 w-8">
-              <IoSearchSharp className="h-8 w-8" />
-            </div>
             <div className="">
               <Sheet>
                 <SheetTrigger>

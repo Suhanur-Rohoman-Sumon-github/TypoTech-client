@@ -1,7 +1,36 @@
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useAppDispatch } from "@/redux/hook";
+import {
+  updateContactInfo,
+  updateIsSubmitted,
+} from "@/redux/fetures/order/orderSlice";
 import ScrollToTop from "../cutom/useScrolltoTop";
-import OrderSumMary from "./OrderSumMary";
+import OrderSummary from "./OrderSumMary";
+
+type FormValues = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  zip: string;
+};
 
 const PersonalInformation = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>();
+  const dispatch = useAppDispatch();
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    dispatch(updateContactInfo(data));
+    dispatch(updateIsSubmitted(true));
+    reset();
+  };
+
   return (
     <div className="container mx-auto py-8">
       <ScrollToTop />
@@ -15,7 +44,7 @@ const PersonalInformation = () => {
               Log in
             </a>
           </p>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -26,10 +55,13 @@ const PersonalInformation = () => {
               <input
                 type="email"
                 id="email"
-                name="email"
+                {...register("email", { required: true })}
                 placeholder="Enter your email"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.email && (
+                <span className="text-red-500">Email is required</span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -41,10 +73,13 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 id="first-name"
-                name="first-name"
+                {...register("firstName", { required: true })}
                 placeholder="Enter your first name"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.firstName && (
+                <span className="text-red-500">First Name is required</span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -56,10 +91,13 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 id="last-name"
-                name="last-name"
+                {...register("lastName", { required: true })}
                 placeholder="Enter your last name"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.lastName && (
+                <span className="text-red-500">Last Name is required</span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -71,10 +109,13 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 id="address"
-                name="address"
+                {...register("address", { required: true })}
                 placeholder="Enter your address"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.address && (
+                <span className="text-red-500">Address is required</span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -86,10 +127,13 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 id="city"
-                name="city"
+                {...register("city", { required: true })}
                 placeholder="Enter your city"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.city && (
+                <span className="text-red-500">City is required</span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -101,17 +145,26 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 id="zip"
-                name="zip"
+                {...register("zip", { required: true })}
                 placeholder="Enter your zip code"
                 className="w-full px-3 py-2 border rounded-lg"
               />
+              {errors.zip && (
+                <span className="text-red-500">Zip Code is required</span>
+              )}
             </div>
+            <button
+              type="submit"
+              className="button-primary px-4 py-2 rounded-md w-full"
+            >
+              save
+            </button>
           </form>
         </div>
 
         {/* Right side: Order Summary */}
         <div>
-          <OrderSumMary />
+          <OrderSummary />
         </div>
       </div>
     </div>

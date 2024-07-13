@@ -2,12 +2,14 @@ import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import OrderSumMary from "./OrderSumMary";
 import ScrollToTop from "../cutom/useScrolltoTop";
 import { setPaymentMethod } from "@/redux/fetures/payments/paymentsSlice";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Shiping = () => {
+  const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK);
   const dispatch = useAppDispatch();
-  const selectedPayment = useAppSelector(
-    (state) => state.payment.selectedPayment
-  );
+  const { selectedPayment, price } = useAppSelector((state) => state.payment);
 
   const paymentOptions = [
     { id: 2, name: "Stripe", deliveryTime: "3-5 Business Days" },
@@ -65,60 +67,12 @@ const Shiping = () => {
             ))}
           </div>
 
-          {/* Conditional rendering for Stripe card input */}
           {selectedPayment === "Stripe" && (
             <div className="mt-6 p-4 border rounded-lg bg-gray-100">
               <h2 className="text-xl font-semibold mb-4">Enter Card Details</h2>
-              <form>
-                <div className="mb-4">
-                  <label
-                    htmlFor="cardNumber"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Card Number
-                  </label>
-                  <input
-                    type="text"
-                    id="cardNumber"
-                    name="cardNumber"
-                    className="mt-1 p-2 w-full border rounded-lg"
-                    placeholder="1234 5678 9012 3456"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="expiryDate"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Expiry Date
-                  </label>
-                  <input
-                    type="text"
-                    id="expiryDate"
-                    name="expiryDate"
-                    className="mt-1 p-2 w-full border rounded-lg"
-                    placeholder="MM/YY"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="cvv"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    CVV
-                  </label>
-                  <input
-                    type="text"
-                    id="cvv"
-                    name="cvv"
-                    className="mt-1 p-2 w-full border rounded-lg"
-                    placeholder="123"
-                  />
-                </div>
-                <button className="w-full py-2 bg-[#7C3FFF] text-white rounded-lg">
-                  Pay with Stripe
-                </button>
-              </form>
+              <Elements stripe={stripePromise}>
+                <CheckoutForm price={price}></CheckoutForm>
+              </Elements>
             </div>
           )}
         </div>
