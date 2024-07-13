@@ -21,8 +21,6 @@ const TotalCharges = ({
   const dispatch = useAppDispatch();
   const { coupon, errorMessage, isCouponValid, currentPrice, discount } =
     useAppSelector((state) => state.cupon);
-  const { orderInfo } = useAppSelector((state) => state.orders);
-  console.log(orderInfo.priceInfo);
 
   // Calculate the total price after applying the discount
   const discountedTotal = currentPrice - currentPrice * discount;
