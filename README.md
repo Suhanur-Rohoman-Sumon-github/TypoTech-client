@@ -39,7 +39,7 @@ The application will be running at http://localhost:5173/
 - Backend: express js, typescript, mongo db, mongoose
 
 ### FQA
-####1)Why the admin dashboard in the navbar
-ans: Because this project is not completed yet, Next update will come soon 
+###1)Why the admin dashboard in the navbar
+Ans: Because this project is not completed yet, Next update will come soon 
 
 
