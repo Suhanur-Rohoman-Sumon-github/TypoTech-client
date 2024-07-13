@@ -2,9 +2,7 @@
 
 Typo Tech is a modern e-commerce web application built with React, Redux, and TypeScript.
 
-![Typo Tech Screenshot](./screenshot.png)
-
-## Table of Contents
+live side:https://typotech.vercel.app/
 
 
 
@@ -25,3 +23,23 @@ To get Typo Tech running locally, follow these steps:
 ```bash
 git clone https://github.com/your-username/typo-tech.git
 cd typo-tech
+```
+### Install dependencies
+
+```bash
+npm install
+```
+### Install dependencies
+```bash
+npm start
+```
+The application will be running at http://localhost:5173/
+### Technologies Used
+Frontend: React js, Redux, TypeScript, tailwind, shad cn,
+Backend: express js, typescript, mongo db , mongoose
+
+### FQA
+1)Why the admin dashboard in the navbar
+ans : Because this project is not completed yet ,Next update will come soon 
+
+
