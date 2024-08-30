@@ -54,9 +54,7 @@ The application will be running at http://localhost:5173/
 - Authentication: JSON Web Tokens (JWT)
 - State Management: Redux Toolkit
 - 
-### credentials
-- admin: user name: admin@gmail.com, password:123456
-- user:user@gmail.com : password:123456
+
 
 
 
