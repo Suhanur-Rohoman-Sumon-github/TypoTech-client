@@ -1,8 +1,8 @@
-# Typo Tech
+# Go reverse
 
-Typo Tech is a modern e-commerce web application built with React, Redux, and TypeScript.
+Room Booking Website
 
-live site:https://typotech.vercel.app/
+https://go-reverse-client.vercel.app/
 
 
 
@@ -21,8 +21,8 @@ To get Typo Tech running locally, follow these steps:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/typo-tech.git
-cd typo-tech
+https://github.com/Suhanur-Rohoman-Sumon-github/go-reverse-client.git
+cd go-reverse-client
 ```
 ### Install dependencies
 
@@ -35,19 +35,29 @@ npm start
 ```
 The application will be running at http://localhost:5173/
 
+### credentials
+- admin: user name: admin@gmail.com, password:123456
+- user:user@gmail.com : password:123456
+
 ### Features
 
-- Product Catalog: Browse and filter products based on categories and attributes.
-- Shopping Cart: Add products to the cart, view cart contents, and proceed to checkout.
-- Checkout Process: Enter shipping information, select payment methods ( Stripe, Cash on Delivery), and review orders.
-- Responsive Design: Ensures a consistent user experience across devices.
+- User Authentication: Register and log in to functionality using JWT.
+- Room Booking: Users can browse available rooms and make bookings.
+- Event Management: Users can view and manage their bookings.
+- Admin Dashboard: Admins can manage room availability and user bookings.
+- Responsive UI: A clean and responsive design built with Ant Design components.
 
 ### Technologies Used
-- Frontend: React js, Redux, TypeScript, tailwind, shad cn,
-- Backend: express js, typescript, mongo db, mongoose
+- Frontend: React, TypeScript, Ant Design, Redux Toolkit
+- Backend: Express, TypeScript, Node.js
+- Database: MongoDB, Mongoose
+- Authentication: JSON Web Tokens (JWT)
+- State Management: Redux Toolkit
+- 
+### credentials
+- admin: user name: admin@gmail.com, password:123456
+- user:user@gmail.com : password:123456
 
-### FQA
-#### 1) Why is the admin dashboard in the navbar?
-Ans: Because this project is not completed yet, the Next update will come soon, The Next update will be user-base authentications.
+
 
 
