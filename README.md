@@ -2,7 +2,7 @@
 
 Room Booking Website
 
-https://go-reverse-client.vercel.app/
+https://greenguide-delta.vercel.app/register?redirect=%2F
 
 
 
